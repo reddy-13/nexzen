@@ -16,6 +16,7 @@ class Examresult extends CI_Controller {
             
            /* get standard exam list */
             $this->load->model("exam_model");
+            $this->load->model('school_model');
             $examid = $this->exam_model->get_school_exam_by_id_manage_result($exam_id);
             $data["exam"] = $examid;
             
@@ -132,4 +133,3 @@ class Examresult extends CI_Controller {
     
   
 }
-?>

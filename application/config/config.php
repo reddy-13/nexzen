@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 date_default_timezone_set('Asia/Kolkata');
 /*
 |--------------------------------------------------------------------------
@@ -24,12 +24,12 @@ date_default_timezone_set('Asia/Kolkata');
 |
 
 */
-$config['base_url'] = 'http://erp.nexzensystem.com/';///https://test.nexzensystem.com/
+$config['base_url'] = 'http://localhost/erp/'; //'http://erp.nexzensystem.com/';///https://test.nexzensystem.com/
 $config['theme_admin'] = "theme/admin";
 $config['theme_frontend'] = "theme/frontend";
 
-$config['growth']=array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-$config['notice_type']=array("holiday", "meeting", "circular", "other");
+$config['growth'] = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+$config['notice_type'] = array("holiday", "meeting", "circular", "other");
 
 $config['GOOGLE_API_KEY'] = 'AIzaSyCTtRF56D0BiuiTiR10pqOcpd1YcTroOYk';
 
@@ -61,7 +61,7 @@ $config['index_page'] = 'index.php';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'AUTO';
+$config['uri_protocol']    = 'AUTO';
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +85,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']    = 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -399,11 +399,11 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
-$config['cookie_prefix']	= '';
-$config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
-$config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
+$config['cookie_prefix']    = '';
+$config['cookie_domain']    = '';
+$config['cookie_path']        = '/';
+$config['cookie_secure']    = FALSE;
+$config['cookie_httponly']     = FALSE;
 
 /*
 |--------------------------------------------------------------------------
