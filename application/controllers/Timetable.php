@@ -92,6 +92,8 @@ class Timetable extends CI_Controller {
     public function edit_timetable($id){
         if(_is_user_login($this)){
             $data = array();
+            $this->load->model('school_model');
+            $school_data = $this->school_model->get_school_profile();
             $this->load->model("timetable_model");
             $timetable = $this->timetable_model->get_timetable_by_id($id);
             $data["timetable"] = $timetable;
@@ -173,5 +175,3 @@ class Timetable extends CI_Controller {
  
   
 }
-
-?>
