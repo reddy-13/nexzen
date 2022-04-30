@@ -80,7 +80,7 @@
                                      </div>
                                     <div class="col-md-12">
                                         <label for="pay_date">Date <span class="red">*</span></label>
-                                        <input type="text" class="form-control" id="pay_date" name="pay_date" placeholder="Show Date" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask value="<?php if(isset($_REQUEST["student_birthdate"])){echo $_REQUEST["student_birthdate"]; } ?>">
+                                        <input type="date" class="form-control" id="pay_date" name="pay_date" placeholder="Show Date" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask value="<?php if(isset($_REQUEST["student_birthdate"])){echo $_REQUEST["student_birthdate"]; } ?>">
                                         
                                         
                                     </div>
@@ -246,12 +246,17 @@
     <script>
       $(function () {
         
-         $("[data-mask]").inputmask("yyyy/mm/dd", {"placeholder": "yyyy/mm/dd"});
-        $(".timepicker").timepicker({
-          showInputs: false
-        });
+         // $("[data-mask]").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        // $(".timepicker").timepicker({
+        //   showInputs: false
+        // });
         
-        $('#example2').DataTable({
+
+        
+
+      });
+
+      $('#example2').DataTable({
           "paging": true,
           "lengthChange": false,
           "searching": true,
@@ -260,8 +265,6 @@
           "info": true,
           "autoWidth": false
         });
-
-      });
     </script>
     
      

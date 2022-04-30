@@ -151,7 +151,7 @@
     <script>
       $(function () {
         
-         $("[data-mask]").inputmask("yyyy/mm/dd", {"placeholder": "yyyy/mm/dd"});
+         $("[data-mask]").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
         $(".timepicker").timepicker({
           showInputs: false
         });

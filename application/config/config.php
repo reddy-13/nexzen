@@ -24,7 +24,7 @@ date_default_timezone_set('Asia/Kolkata');
 |
 
 */
-$config['base_url'] = 'http://localhost/erp/'; //'http://erp.nexzensystem.com/';///https://test.nexzensystem.com/
+$config['base_url'] = 'https://erp.nexzensystem.com/'; //'http://erp.nexzensystem.com/';///https://test.nexzensystem.com/
 $config['theme_admin'] = "theme/admin";
 $config['theme_frontend'] = "theme/frontend";
 

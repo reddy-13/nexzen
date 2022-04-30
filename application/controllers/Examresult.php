@@ -8,6 +8,7 @@ class Examresult extends CI_Controller {
                 // Your own constructor code
                 $this->load->database();
                 $this->load->helper('login_helper');
+                $this->load->model('school_model');
     }
  
   function manage_result($exam_id,$student_id=0){
@@ -16,7 +17,6 @@ class Examresult extends CI_Controller {
             
            /* get standard exam list */
             $this->load->model("exam_model");
-            $this->load->model('school_model');
             $examid = $this->exam_model->get_school_exam_by_id_manage_result($exam_id);
             $data["exam"] = $examid;
             
@@ -133,3 +133,4 @@ class Examresult extends CI_Controller {
     
   
 }
+?>

@@ -16,7 +16,7 @@ public function get_school_standard_student_attendence($standard_id,$date){
             
             $this->db->where('attendence.standard_id',$standard_id);
             $this->db->where('attendence.attendence_date',$date);
-            
+            $this->db->order_by('attendence.student_id','asc');
             $q = $this->db->get();
             return $q->result();
 

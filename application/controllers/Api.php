@@ -618,7 +618,7 @@ public function login(){
                             $data["responce"] = false;  
                             $data["error"] = "Error! : Student not found";
                         }else{
-                        /*
+                        
                         $q = $this->db->query("select student_fees.*,
                         standard.standard_title,
                         student_detail.student_name,
@@ -629,13 +629,13 @@ public function login(){
                         student_detail.student_phone,fee_types.title,fee_types.year from student_fees 
          inner join student_detail on student_detail.student_id = student_fees.student_id
           inner join fee_types on fee_types.id = student_fees.fee_types 
-           inner join standard on standard.standard_id = student_fees.standard_id 
+          inner join standard on standard.standard_id = student_fees.standard_id 
         where student_fees.student_id = '".$_REQUEST["student_id"]."' and student_fees.school_id='".$_REQUEST["school_id"]."'");
-                        */
-                        $sql = "Select fee_types.*,fee_types.base_amount as fee_amount,ifnull(paid_fees.paid_amount,0) as pay_fee_amount,ifnull(paid_fees.last_paid_amount,0) as last_paid_amount, ifnull(paid_fees.on_date,'') as on_date  from fee_types 
-                        left outer join (Select sum(pay_fee_amount) as paid_amount,fee_types, on_date, pay_fee_amount as last_paid_amount from student_fees where student_id = '".$student->student_id."'  group by fee_types order by on_date desc ) as paid_fees on paid_fees.fee_types = fee_types.id 
-                        where fee_types.standard_id = '".$student->student_standard."' and fee_types.school_id = '".$student->school_id."'";
-                        $q = $this->db->query($sql);
+                        
+                        // $sql = "Select fee_types.*,fee_types.base_amount as fee_amount,ifnull(paid_fees.paid_amount,0) as pay_fee_amount,ifnull(paid_fees.last_paid_amount,0) as last_paid_amount, ifnull(paid_fees.on_date,'') as on_date  from fee_types 
+                        // left outer join (Select sum(pay_fee_amount) as paid_amount,fee_types, on_date, pay_fee_amount as last_paid_amount from student_fees where student_id = '".$student->student_id."'  group by fee_types order by on_date desc ) as paid_fees on paid_fees.fee_types = fee_types.id 
+                        // where fee_types.standard_id = '".$student->student_standard."' and fee_types.school_id = '".$student->school_id."'";
+                        //$q = $this->db->query($sql);
                         $results = $q->result();
                         $data["responce"] = true;
                         $data["data"] = $results;

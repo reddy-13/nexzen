@@ -21,6 +21,20 @@ class Common_model extends CI_Model{
             $registers = $this->get_students_gcm_code($row->school_id);
             $this->send_gcm_message($registers,$row->holiday_title, "Date : ".$row->holiday_date, "");
         }
+        
+         // fee code added 31-0ct-2019 by G.Goutham Reddy //site : greddy.in
+        if($table == "fee" || $table == "`fee`"){
+            //fetching data based of last inserted id
+            $q = $this->db->query("Select * from student_fees where student_fees_id = '".$id."' limit 1");
+            $row = $q->row();
+            // fetching fee_types based of fee_types id
+            $get_feetypes = $this->db->query("Select * from fee_types where id='".$row->fee_types."'");
+            $fee_row = $get_feetypes->row();
+
+            $registers = $this->get_students_gcm_code($row->school_id);
+            $this->send_gcm_message($registers,$fee_row->title, "Date : ".$row->pay_date, "");
+        }
+            //end of fee 31-oct-2019
         if($table == "notice_board" || $table == "`notice_board`"){
             $q = $this->db->query("Select * from notice_board where notice_id = '".$id."' limit 1");
             $row = $q->row();

@@ -11,28 +11,31 @@
  * @author Ravi Tamada
  */
 
-class GCM {
+class GCM
+{
 
     //put your code here
     // constructor
-    function __construct() {
-        
+    function __construct()
+    {
     }
 
     /**
      * Sending Push Notification
      */
-    public function send($type, $fields){
+    public function send($type, $fields)
+    {
         $url = 'https://fcm.googleapis.com/fcm/send';
-        
-       $api_key = "AAAA-V3D7yE:APA91bG8AMSUW4F1k1AX5Wz6HrKWdg1XfRDYV0bUfJIgZ8BZLAtT4s3KQXQyego2hI3B-St6AKab78kh7_kX7Gqcx-CcFnxrz93Gnf6qGLJK2g4Jwbke1anSVwXG50u-VBT8xLSKG413";
-        
-        
+
+        $api_key = "AAAAzpJFVOA:APA91bHFTwKYWELyA69gHNNwmIZotRjobQhtciJS-YOKb2DwUARAnXJW6rcz0jt3doof1LEqFE-QUNECj7-82AIMZb0viqqUDVd2xhwK1_7yEWgfekECFNZKs_2NfSLFthFYnrvpIqI4";
+
+        // new code
+
         $headers = array(
-            'Authorization: key=' .$api_key ,
+            'Authorization: key=' . $api_key,
             'Content-Type: application/json'
         );
-        
+
         // Open connection
         $ch = curl_init();
 
@@ -57,42 +60,39 @@ class GCM {
         // Close connection
         curl_close($ch);
         return $result;
-
     }
-    public function send_notification($registatoin_ids, $message, $type) {
-        
+    public function send_notification($registatoin_ids, $message, $type)
+    {
+
         $fields = array(
             'registration_ids' => $registatoin_ids,
             'data' => $message,
-        ); 
-        if($type == "ios"){
-$fields = array(
-            'to' => $registatoin_ids[0],
-            'notification' => $message,
-            'priority' => 'high',
-            'content_available' => true
         );
-
+        if ($type == "ios") {
+            $fields = array(
+                'to' => $registatoin_ids[0],
+                'notification' => $message,
+                'priority' => 'high',
+                'content_available' => true
+            );
         }
-      return  $this->send($type, $fields);
+        return  $this->send($type, $fields);
     }
-    public function send_topics($topics, $message, $type) {
-        
+    public function send_topics($topics, $message, $type)
+    {
+
         $fields = array(
             'to' => $topics,
             'data' => $message,
         );
-        if($type=="ios"){
-$fields = array(
-            'to' => $topics,
-            'notification' => $message,
-            'priority' => 'high',
-            'content_available' => true
-        );
-} 
+        if ($type == "ios") {
+            $fields = array(
+                'to' => $topics,
+                'notification' => $message,
+                'priority' => 'high',
+                'content_available' => true
+            );
+        }
         return $this->send($type, $fields);
     }
-
 }
-
-?>

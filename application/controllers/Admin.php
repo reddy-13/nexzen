@@ -13,9 +13,9 @@ class Admin extends CI_Controller {
         $this->session->sess_destroy();
         redirect("admin");
     }
-	public function index()
-	{
-		if(_is_user_login($this)){
+    public function index()
+    {
+        if(_is_user_login($this)){
             redirect(_get_user_redirect($this));
         }else{
             
@@ -28,14 +28,14 @@ class Admin extends CI_Controller {
                 $this->form_validation->set_rules('username', 'Username', 'trim|required');
                 $this->form_validation->set_rules('password', 'Password', 'trim|required');
                 if ($this->form_validation->run() == FALSE) 
-        		{
-        		  if($this->form_validation->error_string()!=""){
-        			$data["error"] = '<div class="alert alert-warning alert-dismissible" role="alert">
+                {
+                  if($this->form_validation->error_string()!=""){
+                    $data["error"] = '<div class="alert alert-warning alert-dismissible" role="alert">
                                   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                   <strong>Warning!</strong> '.$this->form_validation->error_string().'
                                 </div>';
                    } 
-        		}else
+                }else
                 {
                    
                     $q = $this->db->query("Select * from `users` where (`user_name`='".$this->input->post("username")."') and user_password='".md5($this->input->post("password"))."'  Limit 1");
@@ -73,11 +73,14 @@ class Admin extends CI_Controller {
                     
                 }
             }
+
+            $this->load->model('school_model');
+                    $this->load->model("teacher_model");
             $data["active"] = "login";
             
             $this->load->view("admin/login",$data);
         }
-	}
+    }
  
   public function change_status(){
         $table = $this->input->post("table");
@@ -92,6 +95,8 @@ class Admin extends CI_Controller {
     public function dashboard(){
         if(_is_user_login($this)){
             $data = array();
+            $this->load->model('school_model');
+                    $this->load->model("teacher_model");
             $this->load->view("admin/dashboard",$data);
         }
     }

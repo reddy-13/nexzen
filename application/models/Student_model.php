@@ -1,7 +1,7 @@
 <?php
 class Student_model extends CI_Model{
      
-    public function get_school_student($filter=array()){
+    public function get_school_student($filter=array(),$school_id){
            
             $filter_text = "";
              
@@ -13,10 +13,11 @@ class Student_model extends CI_Model{
                 }
                 
                  else{
+
                         if(_get_current_user_type_id($this) == 2){
-                            $filter_text .= " and  `student_detail`.school_id = "._get_current_user_id($this);
+                            $filter_text .= " and  `student_detail`.school_id = ".$school_id;
                         }else if(_get_current_user_type_id($this) == 1){
-                            $filter_text .= " and  `student_detail`.school_id = "._get_current_user_id($this);
+                            $filter_text .= " and  `student_detail`.school_id = ".$school_id;
                         }
                         
                     
@@ -31,7 +32,44 @@ class Student_model extends CI_Model{
             
             $q = $this->db->query($sql);
             return $q->result();
-    } 
+    }
+
+    public function get_due_fee($standard, $fee_type, $school_id)
+    {
+        # getting student due fee...
+        $this->db->select("student.student_user_name as student_name,student.student_id as student_id, st.standard_title as standard_title,fee.title as fee_title,fee.base_amount as fee_amount, ifnull(su_fee.pay_fee_amount,0) as pay_amount ");
+        $this->db->from("student_detail as student");
+        $this->db->join("standard as st","student.student_standard=st.standard_id","left");
+        $this->db->join("fee_types as fee","st.standard_id=fee.standard_id","left");
+        $this->db->join("student_fees as su_fee","student.student_id=su_fee.student_id","left");
+        $this->db->where("student.school_id='$school_id'");
+
+        $this->db->where("student.student_standard='$standard'");
+        $this->db->where("fee.id='$fee_type'");
+        $this->db->where("fee.id='$fee_type'");
+
+        $this->db->where("fee.base_amount != su_fee.pay_fee_amount");
+
+        // $this->db->join();
+
+        $q = $this->db->get();
+        return $q->result();
+    }
+
+    public function total_due($school_id)
+    {
+        #total due by school id
+        $this->db->select("sum(fee.base_amount) as total_amount, sum(su.pay_fee_amount) - sum(fee.base_amount) as total_due");
+        $this->db->from("student_detail as student");
+        $this->db->join("fee_types as fee","student.school_id=fee.school_id","left");
+        $this->db->join("student_fees as su", "student.school_id=su.school_id","left");
+        $this->db->where("student.school_id",$school_id);
+
+        $q = $this->db->get();
+
+        return $q->result();
+    }
+
     public function get_school_student_by_id($id){
         $q = $this->db->query("select * from student_detail where student_id = '".$id."' limit 1");
         return $q->row();
@@ -58,7 +96,7 @@ public function get_school_standard_student_add_attendence($standard,$school_id)
             if(isset($standard) && $standard!="")
             $this->db->where('student_detail.student_standard',$standard);
             $this->db->where('student_detail.school_id',$school_id);
-            
+            $this->db->order_by('student_detail.student_id','asc');
             $q = $this->db->get();
             return $q->result();
 

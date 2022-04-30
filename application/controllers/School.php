@@ -99,6 +99,8 @@ class School extends CI_Controller {
                 
             }
              $this->load->model("school_model");
+             $this->load->model("student_model");
+
                           $this->load->model("teacher_model");   
                  
                 $this->load->view('school/dashboard',$data);
