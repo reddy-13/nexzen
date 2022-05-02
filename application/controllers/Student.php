@@ -76,25 +76,26 @@ class Student extends CI_Controller
             $data["error"] = "";
 
 
-             function passGen($name, $dob){
-                                    $name = strtolower($name);
-                                    $name = str_replace(' ','',$name);
-                                    $name = substr($name,0,6);
-                                    $dob =  str_replace('-', '', $dob);
-                                    
-                                    return $name.$dob;
-                                }
+            function passGen($name, $dob)
+            {
+                $name = strtolower($name);
+                $name = str_replace(' ', '', $name);
+                $name = substr($name, 0, 6);
+                $dob =  str_replace('-', '', $dob);
+
+                return $name . $dob;
+            }
             if (isset($_REQUEST["savestudent"])) {
                 // echo "<pre>";
                 // print_r($_POST);
                 // exit;
-                    // function passGen($name){
-                    //     $name = strtolower($name);
-                    //     $name = str_replace(' ','',$name);
-                    //     return $name.'123';
-                    // }
+                // function passGen($name){
+                //     $name = strtolower($name);
+                //     $name = str_replace(' ','',$name);
+                //     return $name.'123';
+                // }
 
-                   
+
 
 
                 $this->load->library('form_validation');
@@ -110,17 +111,17 @@ class Student extends CI_Controller
                 $this->form_validation->set_rules('student_phone', 'Student Phone', 'trim|required');
 
                 if ($this->form_validation->run() == FALSE) {
-                   
+
 
                     $data["error"] = '<div class="alert alert-warning alert-dismissible" role="alert">
                                   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                   <strong>Warning!</strong> ' . $this->form_validation->error_string() . '
                                 </div>';
                 } else {
-                    
+
 
                     $q = $this->db->query("select * from student_detail where student_standard=" . $this->input->post('student_standard') . " AND student_roll_no='" . $this->input->post('student_roll_no') . "'");
-                    
+
                     $duplicate_check =  $q->row();
                     if (isset($duplicate_check)) {
                         $this->session->set_flashdata("message", '<div class="alert alert-danger alert-dismissible" role="alert">
@@ -129,7 +130,7 @@ class Student extends CI_Controller
                                         </div>');
                         return redirect("student/add_student");
                     } else {
-                    
+
 
                         $file_name = "";
                         $config['upload_path'] = './uploads/studentphoto/';
@@ -164,9 +165,9 @@ class Student extends CI_Controller
                                     "student_unique_no" => $this->input->post("student_unique_no"),
                                     "student_roll_no" => $this->input->post("student_roll_no"),
                                     "punch_card_id" => $this->input->post("punch_card_id"),
-                                    "student_user_name" => passGen($this->input->post("student_name"),$this->input->post("student_birthdate")),
-                                    "student_password" => md5(passGen($this->input->post("student_name"),$this->input->post("student_birthdate"))),
-                                    "student_orgpassword" => passGen($this->input->post("student_name"),$this->input->post("student_birthdate")),
+                                    "student_user_name" => passGen($this->input->post("student_name"), $this->input->post("student_birthdate")),
+                                    "student_password" => md5(passGen($this->input->post("student_name"), $this->input->post("student_birthdate"))),
+                                    "student_orgpassword" => passGen($this->input->post("student_name"), $this->input->post("student_birthdate")),
                                     "student_standard" => $this->input->post("student_standard"),
                                     "student_address" => $this->input->post("student_address"),
                                     "student_city" => $this->input->post("student_city"),
@@ -187,14 +188,13 @@ class Student extends CI_Controller
                                   <strong>Success!</strong> Student Data Added Successfully
                                 </div>');
                             return redirect("student/add_student");
-                        }else{
+                        } else {
                             $this->session->set_flashdata("message", '<div class="alert alert-danger alert-dismissible" role="alert">
                                           <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                                           <strong>Warning!</strong> Studen Photo is required
                                         </div>');
-                        return redirect("student/add_student");
+                            return redirect("student/add_student");
                         }
-                    
                     }
                 }
             }
@@ -299,52 +299,80 @@ class Student extends CI_Controller
         }
     }
 
+    public function list_due()
+    {
+
+        if (_is_user_login($this)) {
+            //echo "hello "._is_user_login($this);
+            $data["error"] = "";
+            $filter = array();
+            if (isset($_GET['standard'])) {
+                $filter['student_standard'] = $_GET['standard'];
+            }
+
+            $this->load->model('school_model');
+            $this->load->model("standard_model");
+            $this->load->model("student_model");
+            // $this->load->model('school_model');
+
+            $school_data = $this->school_model->get_school_profile();
+            $this->load->model("standard_model");
+            // $data["students"] = $this->student_model->get_school_student($filter, $school_data->school_id);
+            $data["school_standard"] = $this->standard_model->get_school_standard($school_data->school_id);
+            if ($_POST) {
+                $standar_id = $_POST['standard'];
+                $fee_type_id = $_POST['fee_types'];
+                $data['due'] = $this->student_model->get_due_fee($standar_id, $fee_type_id, $school_data->school_id);
+                // echo "<pre>";
+                // print_r($data);
+            }
+
+            $this->load->view("fee/view_due_fee", $data);
+        }
+    }
+
     public function list_student()
     {
 
-        if(_is_user_login($this)){
-           // $data = array();
-           
-          $filter = array();   
-           if(isset($_GET['standard'])){
-              $filter['student_standard'] = $_GET['standard'];
+        if (_is_user_login($this)) {
+            // $data = array();
 
-
-
+            $filter = array();
+            if (isset($_GET['standard'])) {
+                $filter['student_standard'] = $_GET['standard'];
             }
-           $this->load->model("standard_model");
+            $this->load->model("standard_model");
             $this->load->model("student_model");
             $this->load->model('school_model');
-           
-           $school_data = $this->school_model->get_school_profile();
-             if(_get_current_user_type_id($this) == 1){
 
-                  $school_id = $school_data->school_id;
-                  
-                  }elseif (_get_current_user_type_id($this) == 2) {
-                      
-                      $teacher_data = $this->teacher_model->get_school_teacher_user_id(_get_current_user_id($this));
+            $school_data = $this->school_model->get_school_profile();
+            if (_get_current_user_type_id($this) == 1) {
 
-                    $school_id = $teacher_data->school_id;
-                      # code...
-                  }
+                $school_id = $school_data->school_id;
+            } elseif (_get_current_user_type_id($this) == 2) {
+
+                $teacher_data = $this->teacher_model->get_school_teacher_user_id(_get_current_user_id($this));
+
+                $school_id = $teacher_data->school_id;
+                # code...
+            }
 
             $data["student"] = $this->student_model->get_school_student($filter, $school_id);
             /* get school standard */
-          if(_get_current_user_type_id($this) == 1){
+            if (_get_current_user_type_id($this) == 1) {
 
-            $data["school_standard"] = $this->standard_model->get_school_standard($school_data->school_id);
-            // 
-          }elseif (_get_current_user_type_id($this) == 2) {
-            # code...
-            $teacher_data = $this->teacher_model->get_school_teacher_user_id(_get_current_user_id($this));
+                $data["school_standard"] = $this->standard_model->get_school_standard($school_data->school_id);
+                // 
+            } elseif (_get_current_user_type_id($this) == 2) {
+                # code...
+                $teacher_data = $this->teacher_model->get_school_teacher_user_id(_get_current_user_id($this));
 
-            $data["school_standard"] = $this->standard_model->get_school_standard($teacher_data->school_id);            
-          }
-            $this->load->view("student/list_student",$data);
+                $data["school_standard"] = $this->standard_model->get_school_standard($teacher_data->school_id);
+            }
+            $this->load->view("student/list_student", $data);
         }
     }
-    
+
     public function student_excel_download()
     {
         if (_is_user_login($this)) {
@@ -457,12 +485,37 @@ class Student extends CI_Controller
     {
         if (_is_user_login($this)) {
 
+
+
             $this->load->model("student_model");
-            $data["student"] = $this->student_model->get_school_student();
+            $this->load->model("standard_model");
+            // $this->load->model("student_model");
+            $this->load->model('school_model');
+
+            $filter = array();
+            if (isset($_GET['standard'])) {
+                $filter['student_standard'] = $_GET['standard'];
+            }
+
+
+
+            $school_data = $this->school_model->get_school_profile();
+            if (_get_current_user_type_id($this) == 1) {
+
+                $school_id = $school_data->school_id;
+            } elseif (_get_current_user_type_id($this) == 2) {
+
+                $teacher_data = $this->teacher_model->get_school_teacher_user_id(_get_current_user_id($this));
+
+                $school_id = $teacher_data->school_id;
+                # code...
+            }
+            $data["student"] = $this->student_model->get_school_student($filter, $school_id);
 
             $this->load->view("student/student_print", $data);
         }
     }
+
     public function change_status()
     {
         $table = $this->input->post("table");

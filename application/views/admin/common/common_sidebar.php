@@ -36,12 +36,12 @@
             </li>
             <?php } ?>
             <?php
-      if (_get_current_user_type_id($this) == 1) {
-        $teacher_data = $this->school_model->get_school_profile();
-      }
+            if (_get_current_user_type_id($this) == 1) {
+                $teacher_data = $this->school_model->get_school_profile();
+            }
 
 
-      ?>
+            ?>
 
             <?php if (_get_current_user_type_id($this) == 1 && !is_null($teacher_data)) { ?>
 
@@ -145,6 +145,8 @@
                             Types</a></li>
                     <li><a href="<?php echo site_url("fee/add_student_fees"); ?>"><i class="fa fa-list"></i>Add Student
                             Fees</a></li>
+                    <li><a href="<?php echo site_url("student/list_due"); ?>"><i class="fa fa-list"></i>Due list</a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -205,8 +207,8 @@
             </li>
             <?php
 
-      } else if (_get_current_user_type_id($this) == 1 && is_null($teacher_data)) {
-      ?>
+            } else if (_get_current_user_type_id($this) == 1 && is_null($teacher_data)) {
+            ?>
 
             <li>
                 <a href="<?php echo site_url("school/dashboard"); ?>">
@@ -224,8 +226,8 @@
             </li>
 
             <?php
-      }
-      ?>
+            }
+            ?>
 
 
 
