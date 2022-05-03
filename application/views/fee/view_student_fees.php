@@ -22,13 +22,29 @@
                     <li class="active">View Student Fees </li>
                 </ol>
             </section>
+            <?php
+            if (isset($student_fees) && sizeof($student_fees) > 0) {
+                $student_id = $student_fees[0]->student_id;
+            } else {
+            ?>
+            <script>
+            alert("This student fee is not generated redirecting to add student fee page");
+            window.location.href = '<?php echo base_url("fee/add_student_fees"); ?>';
+            </script>
+
+            <?php
+            }
+
+            ?>
 
             <!-- Main content -->
             <section class="content">
                 <div class="row">
                     <div class="col-md-8"></div>
+
+                    <?php var_dump($student_fees); ?>
                     <div class="col-md-4">
-                        <a href="<?php echo site_url("fee/print_student_fees_by_student/" . $student_fees[0]->student_id); ?>"
+                        <a href="<?php echo site_url("fee/print_student_fees_by_student/"); ?>"
                             class="btn btn-primary "><i class="fa fa-print"></i> Print</a>
                     </div>
                 </div>
