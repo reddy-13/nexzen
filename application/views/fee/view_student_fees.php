@@ -23,6 +23,7 @@
                 </ol>
             </section>
             <?php
+            $student_id = 0;
             if (isset($student_fees) && sizeof($student_fees) > 0) {
                 $student_id = $student_fees[0]->student_id;
             } else {
@@ -45,7 +46,7 @@
                     <?php // var_dump($student_fees);  //for debuging
                     ?>
                     <div class="col-md-4">
-                        <a href="<?php echo site_url("fee/print_student_fees_by_student/"); ?>"
+                        <a href="<?php echo site_url("fee/print_student_fees_by_student/" . $student_id); ?>"
                             class="btn btn-primary "><i class="fa fa-print"></i> Print</a>
                     </div>
                 </div>
