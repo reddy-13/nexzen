@@ -322,6 +322,7 @@ class Student extends CI_Controller
             if ($_POST) {
                 $standar_id = $_POST['standard'];
                 $fee_type_id = $_POST['fee_types'];
+
                 $data['due'] = $this->student_model->get_due_fee($standar_id, $fee_type_id, $school_data->school_id);
                 // echo "<pre>";
                 // print_r($data);
@@ -330,6 +331,42 @@ class Student extends CI_Controller
             $this->load->view("fee/view_due_fee", $data);
         }
     }
+
+
+    public function get_due()
+    {
+
+        if (_is_user_login($this)) {
+            //echo "hello "._is_user_login($this);
+            $data["error"] = "";
+            $filter = array();
+            if (isset($_GET['standard'])) {
+                $filter['student_standard'] = $_GET['standard'];
+            }
+
+            $this->load->model('school_model');
+            $this->load->model("standard_model");
+            $this->load->model("student_model");
+            // $this->load->model('school_model');
+
+            $school_data = $this->school_model->get_school_profile();
+            $this->load->model("standard_model");
+            // $data["students"] = $this->student_model->get_school_student($filter, $school_data->school_id);
+            $data["school_standard"] = $this->standard_model->get_school_standard($school_data->school_id);
+            if ($_POST) {
+                $standar_id = $_POST['standard'];
+                // $fee_type_id = $_POST['fee_types'];
+
+                $data['due'] = $this->student_model->get_due($standar_id, $school_data->school_id);
+                // echo "<pre>";
+                // print_r($data);
+            }
+
+            $this->load->view("fee/get_fee", $data);
+        }
+    }
+
+
 
     public function list_student()
     {

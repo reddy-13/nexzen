@@ -86,7 +86,7 @@ class Fee_model extends CI_Model{
 
     public function get_student_fees_list($student_id, $school_id){ 
 
-        $q = $this->db->query("select student_fees.*,standard.standard_title,student_detail.student_name,student_detail.student_address,student_detail.student_city,student_detail.student_roll_no,student_detail.student_branch,student_detail.student_phone,fee_types.title,fee_types.year from student_fees 
+        $q = $this->db->query("select student_fees.*,standard.standard_title,student_detail.student_name,student_detail.student_address,student_detail.student_city,student_detail.student_roll_no,student_detail.student_branch,student_detail.student_phone,student_detail.student_email,fee_types.title,fee_types.year from student_fees 
 
          inner join student_detail on student_detail.student_id = student_fees.student_id
 
@@ -111,5 +111,3 @@ class Fee_model extends CI_Model{
     } 
 
 }
-
-?>

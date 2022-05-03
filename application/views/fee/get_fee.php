@@ -50,11 +50,11 @@
                                     </select>
                                 </div>
 
-                                <div class="col-md-3">
+                                <!-- <div class="col-md-3">
                                     <select class="text-input form-control" id="fee_types" name="fee_types">
                                         <option value="0">Select Fees Type</option>
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
 
 
@@ -390,7 +390,7 @@ function join_url_segment(g_array){
 
 
     <!-- end students -->
-    <script>
+    <!-- <script>
     $("#standard").change(function() {
 
         $('#fee_types').html("");
@@ -431,7 +431,7 @@ function join_url_segment(g_array){
             });
 
     });
-    </script>
+    </script> -->
 
 </body>
 
