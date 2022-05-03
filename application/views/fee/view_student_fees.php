@@ -42,7 +42,8 @@
                 <div class="row">
                     <div class="col-md-8"></div>
 
-                    <?php var_dump($student_fees); ?>
+                    <?php // var_dump($student_fees);  //for debuging
+                    ?>
                     <div class="col-md-4">
                         <a href="<?php echo site_url("fee/print_student_fees_by_student/"); ?>"
                             class="btn btn-primary "><i class="fa fa-print"></i> Print</a>
