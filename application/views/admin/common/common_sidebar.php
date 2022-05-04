@@ -207,6 +207,16 @@
             <a href="<?php echo site_url("book/manage_book"); ?>"><i class="fa fa-book"></i>Homework</a>
 
         </li>
+
+        <li>
+            <a href="#">
+                <i class="fa fa-book"></i> <span>Books</span> <small class="label pull-right bg-green"></small>
+            </a>
+            <ul class="treeview-menu">
+                <li><<a href="<?php echo site_url("BookSection/manage_book"); ?>"><i class="fa fa-book"></i>Manage Books</a></li>
+
+            </ul>
+        </li>
         <?php
 
             } else if (_get_current_user_type_id($this) == 1 && is_null($teacher_data)) {

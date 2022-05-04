@@ -11,6 +11,7 @@ class Student extends CI_Controller
         $this->load->helper('login_helper');
         $this->load->model("school_model");
         $this->load->model("teacher_model");
+        $this->load->library('upload');
     }
 
     public function check_student_username()
@@ -253,7 +254,13 @@ class Student extends CI_Controller
                         if (!$this->upload->do_upload('student_photo')) {
                             $error = array('error' => $this->upload->display_errors());
 
-                            $this->load->view('upload_form', $error);
+                            // $this->load->view('upload_form', $error);
+                            $this->session->set_flashdata("message", '<div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                            <strong>Upload failed!</strong> ' . $error['error'] . '
+                          </div>');
+                            // $this->load->view("student/edit_student".$student_id);
+                            redirect("student/edit_student/" . $student_id);
                         } else {
                             $file_data = $this->upload->data();
                             $file_name = $file_data["file_name"];
