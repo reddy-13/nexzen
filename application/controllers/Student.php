@@ -11,7 +11,7 @@ class Student extends CI_Controller
         $this->load->helper('login_helper');
         $this->load->model("school_model");
         $this->load->model("teacher_model");
-        $this->load->library('upload');
+        // $this->load->library('upload');
     }
 
     public function check_student_username()
@@ -147,7 +147,7 @@ class Student extends CI_Controller
                                 $file_data = $this->upload->data();
                                 $file_name = $file_data["file_name"];
 
-                                //	$student_profile["student_photo"] = $file_name;
+                                	// $student_profile["student_photo"] = $file_name;
                             }
 
                             $this->load->model("common_model");
