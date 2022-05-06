@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php $this->load->view("common/common_head"); ?>
-<style>
-.alert {
-    display: none;
-}
-</style>
+
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
@@ -43,11 +39,27 @@
 
                                 <div class="box-body">
                                     <?php
-                  echo $this->session->flashdata("message");
+                                if($message = $this->session->flashdata("message")){
+                                    echo $message;
+                                }
                   ?>
-                                    <? if (isset($error)) {
-                    echo $error;
+                                    <?php
+                                   
+                                    if (isset($error) && strlen($error) > 0) {
+                    
+                    ?>
+                    <div class="row">
+                                                    <div class="col-md-6 ">
+                                                        <div class="alert alert-danger">
+                                                            <div id="result"><?php echo $error;?></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                    <?php
+                    
                   } ?>
+                  
                                     <div class="row">
                                         <div class="form-group">
                                             <div class="col-md-12">
@@ -60,13 +72,7 @@
 
                         ?>
                                                 <br>
-                                                <div class="row">
-                                                    <div class="col-md-6 ">
-                                                        <div class="alert alert-danger">
-                                                            <div id="result"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
 
                                                 <h4 class="box-title">Teacher Credentials</h4>
                                             </div>
@@ -123,9 +129,9 @@
                                                 <div class="col-md-6">
                                                     <label for="teacher_birthdate">Teacher Birthdate <span
                                                             class="red">*</span></label>
-                                                    <input type="text" class="form-control" id="teacher_birthdate"
+                                                    <input type="date" class="form-control" id="teacher_birthdate"
                                                         name="teacher_birthdate" placeholder="Show Date"
-                                                        data-inputmask="'alias': 'yyyy/mm/dd'" data-mask
+                        
                                                         value="<?php if (isset($_REQUEST["teacher_birthdate"])) {
                                                                                                                                                                                                     echo $_REQUEST["teacher_birthdate"];
                                                                                                                                                                                                   } ?>">
@@ -347,9 +353,9 @@
     <script>
     $(function() {
 
-        $("[data-mask]").inputmask("yyyy/mm/dd", {
-            "placeholder": "yyyy/mm/dd"
-        });
+        // $("[data-mask]").inputmask("dd/mm/yyyy", {
+        //     "placeholder": "dd/mm/yyyy/"
+        // });
         $(".timepicker").timepicker({
             showInputs: false
         });

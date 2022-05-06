@@ -36,7 +36,9 @@
                             <form role="form" action="" method="post" enctype="multipart/form-data">
                               <div class="box-body">
                               <?php 
-                                echo $this->session->flashdata("message");
+                                if($message = $this->session->flashdata("message")){
+                                    echo $message
+                                }
                                ?>
                                 <? if(isset($error)){
                             echo $error;

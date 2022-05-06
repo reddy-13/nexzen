@@ -10,7 +10,7 @@ class Teacher extends CI_Controller
         $this->load->database();
         $this->load->helper('login_helper');
         $this->load->model("school_model");
-        // $this->load->library('session');
+        $this->load->library('session');
     }
 
     public function check_teacher_username()
@@ -108,7 +108,7 @@ class Teacher extends CI_Controller
 
                     $this->session->set_flashdata("message", '<div class="alert alert-success alert-dismissible" role="alert">
                                   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                  <strong>Success!</strong> Standard Added Successfully
+                                  <strong>Success!</strong> Teacher Added Successfully
                                 </div>');
                     return redirect("teacher/add_teacher");
                 }
