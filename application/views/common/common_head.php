@@ -33,6 +33,7 @@
     <![endif]-->
    <!-- fullCalendar 2.2.5-->
  <link rel="stylesheet" href="<?php echo base_url($this->config->item("theme_admin")."/plugins/fullcalendar/fullcalendar.min.css"); ?>">
+ 
     
 
   </head>

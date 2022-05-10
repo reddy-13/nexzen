@@ -26,6 +26,8 @@
         <section class="content">
             <div class="row">
               <div class="col-md-12">
+                <a class="btn btn-primary" href="<?php echo site_url("student/list_cards/").$student->student_id; ?>">Generate ID</a>
+
                 <a href="<?php echo site_url("student/list_student"); ?>" class="btn btn-primary pull-right">List</a>
                 </div>
                 <div class="col-md-12">
@@ -54,6 +56,10 @@
                                       <div class="col-md-6">
                                         <label for="student_name">Student Name <span class="red">*</span></label>
                                         <input type="text" class="form-control" id="student_name" name="student_name" value="<?php echo $student->student_name; ?>"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="student_father_name">Student Father's Name</label>
+                                        <input type="text" class="form-control" id="student_father_name" name="student_father_name" value="<?php echo $student->student_father_name; ?>"/>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="student_birthdate">Student Birthdate <span class="red">*</span></label>
@@ -86,6 +92,10 @@
                                      <div class="col-md-6">
                                         <label for="student_city">Student City <span class="red">*</span></label>
                                         <input type="text" class="form-control" id="student_city" name="student_city" value="<?php echo $student->student_city; ?>"/>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="student_blood_group">Student Blood Group</label>
+                                        <input type="text" class="form-control" id="student_blood_group" name="student_blood_group" value="<?php echo $student->student_blood_group; ?>"/>
                                     </div>
                                      <div class="col-md-6">
                                         <label for="student_phone">Student Phone  <span class="red">*</span></label>

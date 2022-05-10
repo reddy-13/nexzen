@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
  <?php  $this->load->view("common/common_head"); ?>
@@ -46,7 +47,7 @@
                             echo $error;
                         } ?>
                         
-
+                                
                         
                                 <div class="form-group">
                                     <div class="row">
@@ -54,6 +55,11 @@
                                     <p style="border-bottom: 1px solid black;"><strong>Teacher Detail</strong> (Please Fill * all Required Field)</p>
                                     </div>
                                    <h4 class="box-title">General Information</h4>
+                                   <div class="form-group">                                  
+                
+
+                                    
+                                   
                                       <div class="col-md-6">
                                         <label for="teacher_name">Teacher Name <span class="red">*</span></label>
                                         <input type="text" class="form-control" id="teacher_name" name="teacher_name" value="<?php echo $teacher->teacher_name; ?>"/>
@@ -165,6 +171,16 @@
                                     
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                            <div class="col-md-6">
+                                                <label for="teacher">Update Password</label>
+                                                <input type="password" class="form-control" id="password"
+                                                    name="password" value="<?php echo $password;?>">
+                                            </div>
+                                        </div>
+                                </div>
+
                               
                               </div><!-- /.box-body -->
             

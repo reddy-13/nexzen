@@ -95,7 +95,7 @@ class Teachers extends CI_Controller {
       function profile(){
         if(_is_user_login($this)){
                
-          $this->load->model("school_model");
+          // $this->load->model("school_model");/
           $data["schooldetail"] = $this->school_model->get_school_profile();
           
           $data["error"] = "";

@@ -8,7 +8,7 @@ class Student extends CI_Controller
         parent::__construct();
         // Your own constructor code
         $this->load->database();
-        $this->load->helper('login_helper');
+        $this->load->helper(['login_helper','form']);
         $this->load->model("school_model");
         $this->load->model("teacher_model");
         // $this->load->library('upload');
@@ -131,11 +131,12 @@ class Student extends CI_Controller
                                         </div>');
                         return redirect("student/add_student");
                     } else {
-
+                        $roll_no = $this->input->post("student_phone")."".$this->input->post("student_roll_no");
 
                         $file_name = "";
                         $config['upload_path'] = './uploads/studentphoto/';
                         $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                        $config['file_name'] = $roll_no.".jpg";
                         $this->load->library('upload', $config);
 
                         if ($_FILES["student_photo"]["size"] > 0) {
@@ -162,6 +163,7 @@ class Student extends CI_Controller
                                 "student_detail",
                                 array(
                                     "student_name" => $this->input->post("student_name"),
+                                    "student_father_name" => $this->input->post("student_father_name"),
                                     "student_birthdate" => $this->input->post("student_birthdate"),
                                     "student_unique_no" => $this->input->post("student_unique_no"),
                                     "student_roll_no" => $this->input->post("student_roll_no"),
@@ -172,6 +174,7 @@ class Student extends CI_Controller
                                     "student_standard" => $this->input->post("student_standard"),
                                     "student_address" => $this->input->post("student_address"),
                                     "student_city" => $this->input->post("student_city"),
+                                    "student_blood_group" => $this->input->post("student_blood_group"),
                                     "student_phone" => $this->input->post("student_phone"),
                                     "student_parent_phone" => $this->input->post("student_parent_phone"),
                                     // "student_enr_no" => $this->input->post("student_enr_no"),
@@ -229,6 +232,7 @@ class Student extends CI_Controller
                 } else {
                     $update_array = array(
                         "student_name" => $this->input->post("student_name"),
+                        "student_father_name" => $this->input->post("student_father_name"),
                         "student_birthdate" => $this->input->post("student_birthdate"),
                         "student_roll_no" => $this->input->post("student_roll_no"),
                         "punch_card_id" => $this->input->post("punch_card_id"),
@@ -236,6 +240,7 @@ class Student extends CI_Controller
                         "student_address" => $this->input->post("student_address"),
                         "student_city" => $this->input->post("student_city"),
                         "student_phone" => $this->input->post("student_phone"),
+                        "student_blood_group" => $this->input->post("student_blood_group"),
                         "student_parent_phone" => $this->input->post("student_parent_phone"),
                         "student_enr_no" => $this->input->post("student_enr_no"),
                         "student_email" => $this->input->post("student_email"),
@@ -248,8 +253,10 @@ class Student extends CI_Controller
 
 
                     if ($_FILES["student_photo"]["size"] > 0) {
+                        $roll_no = $this->input->post("student_phone")."".$this->input->post("student_roll_no");
                         $config['upload_path'] = './uploads/studentphoto/';
                         $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                         $config['file_name'] = $roll_no.".jpg";
                         $this->load->library('upload', $config);
                         if (!$this->upload->do_upload('student_photo')) {
                             $error = array('error' => $this->upload->display_errors());
@@ -340,6 +347,9 @@ class Student extends CI_Controller
     }
 
 
+
+
+
     public function get_due()
     {
 
@@ -415,6 +425,28 @@ class Student extends CI_Controller
             }
             $this->load->view("student/list_student", $data);
         }
+    }
+
+    // list id card
+
+    public function list_cards($student_id='')
+
+    {
+        if($student_id ==='')
+            echo "sorry no url found";
+        else
+         if (_is_user_login($this)) {
+            $data = array();
+            $this->load->model("student_model");
+            $data["student_detail"] = $this->student_model->get_school_student_detail($student_id);
+
+
+            $this->load->model("growth_model");
+            $data["student_growth"] = $this->growth_model->get_school_standard_student_growth($student_id);
+
+            $this->load->view("student/list_id_card", $data);
+        }
+        
     }
 
     public function student_excel_download()

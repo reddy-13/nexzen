@@ -42,13 +42,16 @@
                         <th> Name</th>
                          <th> Birthdate</th>
                         <th> Phone</th>
+                        <th>Password</th>
                         <th> Address</th>
                         <th> Education</th>
                         <th> Detail</th>
                         <th width="80">Action</th>
+
                       </tr>
                     </thead>
                     <tbody>
+                        
                 <?php foreach($teacher as $teachers){
                     ?>
                     <tr>
@@ -59,6 +62,11 @@
                         </td>
                     <td><?php echo $teachers->teacher_birthdate; ?> </td>
                     <td><?php echo $teachers->teacher_phone; ?> </td>
+                    <?php
+
+                        $user_data  = $this->users_model->get_user_by_id($teachers->user_id); 
+                    ?>
+                    <td><?php echo $user_data->password; ?> </td>
                     <td><?php echo $teachers->teacher_address; ?> </td>
                     <td><?php echo $teachers->teacher_education; ?> </td>
                     <td><?php echo substr($teachers->teacher_detail,0,300); ?> </td>

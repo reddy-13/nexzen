@@ -79,6 +79,7 @@ class Teacher extends CI_Controller
                         array(
                             "user_name" => $this->input->post('username'),
                             "user_password" => md5($this->input->post("password")),
+                            "password" => $this->input->post("password"),
                             "user_type_id" => "2",
                             "user_status" => "1"
                         )
@@ -124,8 +125,12 @@ class Teacher extends CI_Controller
         if (_is_user_login($this)) {
             $data = array();
             $this->load->model("teacher_model");
-            $teacherid = $this->teacher_model->get_school_teacher_by_id($teacher_id);
-            $data["teacher"] = $teacherid;
+            $this->load->model("users_model");
+
+            $teacher_data = $this->teacher_model->get_school_teacher_by_id($teacher_id);
+            $user_data  = $this->users_model->get_user_by_id($teacher_data->user_id);
+            $data['password'] = $user_data->password;
+            $data["teacher"] = $teacher_data;
 
             if ($_POST) {
                 $this->load->library('form_validation');
@@ -144,7 +149,7 @@ class Teacher extends CI_Controller
                                   <strong>Warning!</strong> ' . $this->form_validation->error_string() . '
                                 </div>';
                 } else {
-                    $file_name = $teacherid->teacher_image;
+                    $file_name = $teacher_data->teacher_image;
                     $config['upload_path'] = './uploads/teacherphoto/';
                     $config['allowed_types'] = 'gif|jpg|png|jpeg';
                     $this->load->library('upload', $config);
@@ -175,7 +180,26 @@ class Teacher extends CI_Controller
                         "teacher_detail" => $this->input->post("editor1"),
                         "teacher_image" => $file_name
                     );
+
+
+                    $update_user = [
+                        'user_password' => md5($this->input->post("password")),
+                        'password' => $this->input->post("password"),
+                                ];
+
+
+                    
                     $this->load->model("common_model");
+
+                    // updates users based on user id
+
+                    $this->common_model->data_update(
+                        "users",$update_user,
+                        array(
+                            "user_id"=>$teacher_data->user_id
+                        )
+                    );
+                    // updating model for teacher
                     $this->common_model->data_update(
                         "teacher_detail",
                         $update_array,
@@ -201,6 +225,7 @@ class Teacher extends CI_Controller
             $data = array();
             $school_data = $this->school_model->get_school_profile();
             $this->load->model("teacher_model");
+            $this->load->model("users_model");
             $data["teacher"] = $this->teacher_model->get_school_teacher($school_data->school_id);
 
             $this->load->view("teacher/list_teacher", $data);
@@ -218,6 +243,7 @@ class Teacher extends CI_Controller
             $this->load->view("teacher/teacher_detail", $data);
         }
     }
+
     function delete_teacher($teacher_id)
     {
         $data = array();

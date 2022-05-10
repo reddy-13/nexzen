@@ -35,6 +35,9 @@
         <section class="content">
          <div class="row">
     <div class="pull-right">
+        <a class="btn btn-primary" href="<?php echo site_url("student/list_cards/").$student_detail->student_id; ?>">Generate ID</a>
+        <a class="btn btn-primary" href="<?php echo site_url("student/list_student/").$student_detail->student_id; ?>">Student's list</a>
+
          <input type="button" value="Print" onclick="window.print()" class="btn btn-primary non-print" />
         </div>
 		<div class="col-sm-12 col-md-12 col-xs-12 user-details">
@@ -99,6 +102,10 @@
                      <tr class="success">
                       <td>Student Phone :</td>
                         <td><?php echo $student_detail->student_phone; ?> </td>
+                      </tr>
+                      <tr class="info">
+                      <td>Student Blood group :</td>
+                        <td><?php echo $student_detail->student_blood_group; ?> </td>
                       </tr>
                       
                         <tr class="info">

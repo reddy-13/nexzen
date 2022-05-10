@@ -1,5 +1,5 @@
 ---
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/example/public_html/nexzensystem.com/erp/
-    - /bin/cp -fr * $DEPLOYPATH
+# deployment:
+#   tasks:
+#     - export DEPLOYPATH=/home/example/public_html/nexzensystem.com/erp/
+#     - /bin/cp -fr * $DEPLOYPATH
