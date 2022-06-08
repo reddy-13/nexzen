@@ -34,7 +34,7 @@
             <div class="box">
            
                 <div class="box-header">
-                
+                           <div class="table-responsive">
                 <table id="example2" class="example table table-bordered table-hover display">
                     <thead>
                       <tr>
@@ -42,6 +42,7 @@
                         <th> Name</th>
                          <th> Birthdate</th>
                         <th> Phone</th>
+                        <th>Username</th>
                         <th>Password</th>
                         <th> Address</th>
                         <th> Education</th>
@@ -66,6 +67,7 @@
 
                         $user_data  = $this->users_model->get_user_by_id($teachers->user_id); 
                     ?>
+                    <td><?php echo $user_data->user_name; ?> </td>
                     <td><?php echo $user_data->password; ?> </td>
                     <td><?php echo $teachers->teacher_address; ?> </td>
                     <td><?php echo $teachers->teacher_education; ?> </td>
@@ -81,6 +83,7 @@
                 } ?>
                     </tbody>
                 </table>
+            </div>
             </div>
         </div>
         </div>

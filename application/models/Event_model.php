@@ -5,7 +5,8 @@ class Event_model extends CI_Model{
             $q = $this->db->query("select * from event where school_id=".$school_id);
             return $q->result();
     }
-          public function get_school_event_by_id($id){
+    
+    public function get_school_event_by_id($id){
         $q = $this->db->query("select * from event where  event_id = '".$id."' limit 1");
         return $q->row();
     }

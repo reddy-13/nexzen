@@ -147,6 +147,15 @@ class Subject extends CI_Controller {
    
     function view_quiz_result($subject_id){
             $this->load->model("subject_model");
+
+            if(_get_current_user_type_id($this) == 1){
+              $school_data = $this->school_model->get_school_profile();
+
+            }else if(_get_current_user_type_id($this) == 2){
+              $school_data = $this->teacher_model->get_school_teacher_user_id(_get_current_user_id($this));
+            }
+
+            
             $data["quiz_result"] = $this->subject_model->get_result_by_standard($subject_id, $school_data->school_id); 
             $this->load->view("subject/view_quiz_result",$data);
     }

@@ -7,13 +7,13 @@ class Punch_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-         $this->mssql = $this->load->database('MSSQL',TRUE );
+         $this->mssql = $this->load->database('xamp',TRUE );
          
     }
 
     function getPunchData(){
 
-        $query = $this->mssql->order_by('Tran_MachineRawPunchId','DESC')->get('Tran_MachineRawPunch');
+        $query = $this->mssql->order_by('PK_id','DESC')->get('tblt_timesheet');
 
         $res = $query->result();
 

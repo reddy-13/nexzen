@@ -25,14 +25,14 @@ class Test extends CI_Controller {
                 //echo "<pre>";
                 // print_r($punch_data);
                 foreach ($punch_data as $p_data) {
-                    $school_id_data = $this->punch_model->getSchoolIdbyCardId($p_data->MachineNo);
-                    $student_data = $this->punch_model->getStudentByCardId($p_data->CardNo);
+                    $school_id_data = $this->punch_model->getSchoolIdbyCardId($p_data->Tid);
+                    $student_data = $this->punch_model->getStudentByCardId($p_data->punchingcode);
                     $punch_date = $date =Date('Y-m-d',strtotime( $p_data->Dateime1));
                  
                     $school_id = $school_id_data[0]->school_id;
 
-                    $machine_id = $p_data->MachineNo;
-                    $card_no = $p_data->CardNo;
+                    $machine_id = $p_data->Tid;
+                    $card_no = $p_data->punchingcode;
                     $student_id = $student_data[0]->student_id;
                     $standard_id = $student_data[0]->student_standard;
                     $insert_data = array(

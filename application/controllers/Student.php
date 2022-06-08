@@ -56,7 +56,7 @@ class Student extends CI_Controller
 
 
             $this->load->model("standard_model");
-            $school_data = $this->school_model->get_school_profile();
+            // $school_data = $this->school_model->get_school_profile();
 
 
 
@@ -136,6 +136,9 @@ class Student extends CI_Controller
                         $file_name = "";
                         $config['upload_path'] = './uploads/studentphoto/';
                         $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                        $config['max_size'] = 10000;
+                        $config['max_width']            = 5048;
+                        $config['max_height']           = 4012;
                         $config['file_name'] = $roll_no.".jpg";
                         $this->load->library('upload', $config);
 
@@ -257,6 +260,9 @@ class Student extends CI_Controller
                         $config['upload_path'] = './uploads/studentphoto/';
                         $config['allowed_types'] = 'gif|jpg|png|jpeg';
                          $config['file_name'] = $roll_no.".jpg";
+                         $config['max_size'] = 10000;
+                         $config['max_width']   = 5048;
+                        $config['max_height']   = 4012;
                         $this->load->library('upload', $config);
                         if (!$this->upload->do_upload('student_photo')) {
                             $error = array('error' => $this->upload->display_errors());

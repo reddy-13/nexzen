@@ -22,11 +22,17 @@
             <li class="active">Update Teacher</li>
           </ol>
         </section>
+        <?php 
+            // echo "<pre>";
+            // print_r($teacher);
+            // exit;
+         ?>
 
         <!-- Main content -->
         <section class="content">
             <div class="row">
               <div class="col-md-12">
+                <a href="<?php echo site_url("teacher/id_card"); ?>" class="btn btn-primary ">Generate ID</a>
                 <a href="<?php echo site_url("teacher/list_teacher"); ?>" class="btn btn-primary pull-right">List</a>
                 </div>
                 <div class="col-md-12">
@@ -96,6 +102,15 @@
                                       </div>
                                        
                                     </div>
+                                     <div class="col-md-6">
+                                    <label for="teacher_blood_group">Blood Group</label>
+                                        <input type="text" class="form-control" id="teacher_blood_group"
+                                        name="teacher_blood_group"
+                                        placeholder="e.g B+"
+                                        value="<?php if (isset($teacher->teacher_blood_group)) {
+                                          echo $teacher->teacher_blood_group;
+                                      } ?>" />
+                                  </div>
                                  
                                      <div class="col-md-6">
                                         <label for="teacher_address">Teacher Address <span class="red">*</span></label>

@@ -95,12 +95,14 @@ $db['default'] = array(
     'save_queries' => TRUE
 );
 
-$db['MSSQL'] = array(
-    'hostname' => 'ec2-18-224-30-236.us-east-2.compute.amazonaws.com\EC2AMAZ-SSR7ELP\SQLEXPRESS, 1433',
-    'username' => 'sa',
-    'password' => 'dbnms#123',
-    'database' => 'realsoftweb',
-    'dbdriver' => 'sqlsrv',
+
+$db['xamp'] = array(
+    'dsn'    => '',
+    'hostname' => '3.111.113.92:3306',
+    'username' => 'root', //greddyin_nexzen
+    'password' => 'greddy@123', //Greddy@Nexzen
+    'database' => 'realtime', // test_nexzen
+    'dbdriver' => 'mysqli',
     'dbprefix' => '',
     'pconnect' => FALSE,
     'db_debug' => (ENVIRONMENT !== 'production'),
@@ -115,3 +117,26 @@ $db['MSSQL'] = array(
     'failover' => array(),
     'save_queries' => TRUE
 );
+// table name  =>>> tblt_timesheet
+
+
+// $db['MSSQL'] = array(
+//     'hostname' => 'ec2-18-224-30-236.us-east-2.compute.amazonaws.com\EC2AMAZ-SSR7ELP\SQLEXPRESS, 1433',
+//     'username' => 'sa',
+//     'password' => 'dbnms#123',
+//     'database' => 'realsoftweb',
+//     'dbdriver' => 'sqlsrv',
+//     'dbprefix' => '',
+//     'pconnect' => FALSE,
+//     'db_debug' => (ENVIRONMENT !== 'production'),
+//     'cache_on' => FALSE,
+//     'cachedir' => '',
+//     'char_set' => 'utf8',
+//     'dbcollat' => 'utf8_general_ci',
+//     'swap_pre' => '',
+//     'encrypt' => FALSE,
+//     'compress' => FALSE,
+//     'stricton' => FALSE,
+//     'failover' => array(),
+//     'save_queries' => TRUE
+// );

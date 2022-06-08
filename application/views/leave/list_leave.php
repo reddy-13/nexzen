@@ -14,12 +14,12 @@
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                    Student
-                    <small>Manage Student</small>
+                    Leave
+                    <small>Manage Leave</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Student</a></li>
-                    <li class="active">List Student</li>
+                    <li class="active">List Leave</li>
                 </ol>
             </section>
 
@@ -29,17 +29,13 @@
                     <div class="col-md-12">
                         <div class="col-md-6">
                             <div class="col-md-4">
-                                <select class="form-control select2" name="filter" id="standard_type"
+                                <select class="form-control select2" name="filter" id="leave_type"
                                     onchange="choose_standard_type()" style="width: 100%;">
-                                    <option value="">Select Standard</option>
-                                    <?php foreach ($school_standard as $standard) {
-                  ?>
-                                    <option value="<?php echo $standard->standard_id; ?>" <?php if (isset($_GET["standard"]) && $_GET["standard"] == $standard->standard_id) {
-                                                                            echo "selected";
-                                                                          } ?>><?php echo $standard->standard_title; ?>
-                                    </option>
-                                    <?php
-                  } ?>
+                                    <option value="">Leave Type</option>
+                                    <option value="student">Students</option>
+                                    <option value="teacher">Teachers</option>
+                                    <option value="staff">staff</option>
+                                    
                                 </select>
                             </div>
                             <div class="col-md-4">
@@ -74,33 +70,28 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>
-                                                <th>Photo</th>
-                                                <th>Class</th>
-                                                <th>Student Roll No</th>
-                                                <th>Student Card Id</th>
-                                                <th>Username</th>
-                                                <th>Password</th>
-                                                <th>Student Phone</th>
-                                                <th>Student Fees</th>
-                                                <th>Student Growth</th>
+                                                <th>Subject</th>
+                                                <th>Documents</th>
+                                                <th>from</th>
+                                                <th>to</th>
                                                 <th>Status</th>
-                                                <th width="80">Action</th>
+                                                <th>Action</th>
+                                               
                                             </tr>
                                         </thead>
                                         <tbody>
-
-                                            <?php foreach ($student as $students) {
-                      ?>
+                                            <?php
+                                                echo "<pre>";
+                                                print_r($leaves);
+                                                exit;
+                                             foreach ($leaves as $students) {
+                                            ?>
                                             <tr>
                                                 <form method="post">
                                                     <td><?php echo $students->student_id; ?>
                                                     <td>
                                                         <?php echo anchor('student/student_detail/' . $students->student_id, $students->student_name, 'title="Student Detail"'); ?>
                                                     </td>
-
-                                                    <td>
-                                                        <img src="<?php echo (isset($students->student_photo) && $students->student_photo != "") ? base_url('uploads/studentphoto/'.$students->student_photo) : base_url('uploads/studentphoto/default.jpg');?>" alt="John" style="width:50px;height: 50px;border-radius:50%;margin-top: 5%;border: 4px solid #850d23;
-                        "></td>
                                                     <td><?php echo $students->standard_title; ?>
                                                     </td>
                                                     <td><?php echo $students->student_roll_no; ?></td>
@@ -110,12 +101,12 @@
                                                     <td><?php echo $students->student_phone; ?></td>
                                                     <td>
                                                         <a href="<?php echo site_url("fee/list_student_fees_by_student/" . $students->student_id); ?>"
-                                                            class="btn btn-primary"><i class="fa fa-eye"></i></a>
+                                                            class="btn btn-primary"><i class="fa fa-eye"></i> Fees</a>
                                                     </td>
                                                     <td>
                                                         <a href="<?php echo site_url("growth/manage_growth/" . $students->student_id); ?>"
                                                             class="btn btn-primary"><i class="fa fa-plus"></i>Set
-                                                            </a>
+                                                            Growth</a>
                                                     </td>
                                                     <td><input class='tgl tgl-ios tgl_checkbox'
                                                             data-table="student_detail" data-status="student_status"

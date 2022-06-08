@@ -174,31 +174,19 @@ input, button, select, optgroup, textarea {
 
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label mt-5"for="studen_blood_group">Student Blood Group  <span class="red">*</span></label>
+                                        <label class="form-label mt-5"for="student_blood_group">Student Blood Group</label>
                                          <?php
                                                
-                                                echo form_input(['name' => 'studen_blood_group',
+                                                echo form_input(['name' => 'student_blood_group',
                                                         'class' => 'form-control',
-                                                        'id' => 'studen_blood_group',
+                                                        'id' => 'student_blood_group',
                                                         'placeholder' => 'Student Blood Group',
-                                                        'value' => set_value('studen_blood_group')]);
+                                                        'value' => set_value('student_blood_group')]);
                                         ?>
 
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="form-label mt-5"for="student_phone">Student Phone  <span class="red">*</span></label>
-                                         <?php
-                                               
-                                                echo form_input(['name' => 'student_phone',
-                                                        'class' => 'form-control',
-                                                        'id' => 'student_phone',
-                                                        'placeholder' => 'Student Phone',
-                                                        'value' => set_value('student_phone')]);
-                                        ?>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label mt-5"for="student_parent_phone">Student Parent Phone  </label>
+                                        <label class="form-label mt-5"for="student_parent_phone">Student Parent Phone <span class="red">*</span>  </label>
                                          <?php
                                                
                                             echo form_input(['name' => 'student_parent_phone',
@@ -209,6 +197,19 @@ input, button, select, optgroup, textarea {
                                             echo form_error('student_parent_phone', '<span class="text-danger"><small><b>', '</b></small></span>');
                                         ?>
                                     </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label mt-5"for="student_phone">Student Phone  </label>
+                                         <?php
+                                               
+                                                echo form_input(['name' => 'student_phone',
+                                                        'class' => 'form-control',
+                                                        'id' => 'student_phone',
+                                                        'placeholder' => 'Student Phone',
+                                                        'value' => set_value('student_phone')]);
+                                        ?>
+
+                                    </div>
+                                    
                                     <div class="col-md-6">
                                         <label class="form-label mt-5"for="student_email">Student Email  </label>
                                         

@@ -30,7 +30,9 @@ class Api extends CI_Controller {
  /* student login */ 
  
 public function login(){
-     //$_POST = $_REQUEST;
+     // $_POST = $_REQUEST;
+    // print_r($_REQUEST);
+    //  exit;
      
         $this->load->library('form_validation');
         $this->form_validation->set_rules('student_user_name', 'User Name', 'trim|required');
@@ -57,6 +59,7 @@ public function login(){
                         else
                         {
                             $student->school_name = "$school_data->school_name";
+                            $student->school_logo = "$school_data->school_logo";
                             $data["data"] = $student;
                             
                             
@@ -542,7 +545,7 @@ public function login(){
                     if($_REQUEST["school_id"]!=""){ 
                         
                          
-                        $q = $this->db->query("select * from notification where school_id= '".$_REQUEST["school_id"]."'");
+                        $q = $this->db->query("select * from notification where school_id= '".$_REQUEST["school_id"]."' ORDER by noti_id DESC");
                         $results = $q->result();
                         
                         $data["responce"] = true;

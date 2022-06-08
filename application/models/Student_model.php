@@ -65,9 +65,7 @@ class Student_model extends CI_Model
         // $this->db->where("fee.id='$fee_type'");
 
         $this->db->where("fee.base_amount != su_fee.pay_fee_amount");
-
         // $this->db->join();
-
         $q = $this->db->get();
         return $q->result();
     }

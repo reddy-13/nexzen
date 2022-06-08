@@ -97,14 +97,15 @@
                                         <label for="student_blood_group">Student Blood Group</label>
                                         <input type="text" class="form-control" id="student_blood_group" name="student_blood_group" value="<?php echo $student->student_blood_group; ?>"/>
                                     </div>
-                                     <div class="col-md-6">
-                                        <label for="student_phone">Student Phone  <span class="red">*</span></label>
-                                        <input type="text" class="form-control" id="student_phone" name="student_phone" value="<?php echo $student->student_phone; ?>"/>
-                                    </div>
-                                     <div class="col-md-6">
-                                        <label for="student_parent_phone">Student Parent Phone  </label>
+                                    <div class="col-md-6">
+                                        <label for="student_parent_phone">Student Parent Phone <span class="red">*</span>  </label>
                                         <input type="text" class="form-control" id="student_parent_phone" name="student_parent_phone" value="<?php echo $student->student_parent_phone; ?>"/>
                                     </div>
+                                     <div class="col-md-6">
+                                        <label for="student_phone">Student Phone  </label>
+                                        <input type="text" class="form-control" id="student_phone" name="student_phone" value="<?php echo $student->student_phone; ?>"/>
+                                    </div>
+                                     
                                      <div class="col-md-6">
                                         <label for="student_enr_no">Student Enrolment No  </label>
                                         <input type="text" class="form-control" id="student_enr_no" name="student_enr_no" value="<?php echo $student->student_enr_no; ?>"/>
@@ -140,7 +141,7 @@
                                         <label for="" class="pull-right">Student Photo </label>
                                       <?php
                                             $img = $this->config->item('base_url')."uploads/studentphoto/".$student->student_photo; ?>                                 
-                                            <img src="<?php echo $img; ?>" style="height: 50px; width: 50px; margin-top: 10px;" class="pull-right"/>
+                                            <img name= src="<?php echo $img; ?>" style="height: 50px; width: 50px; margin-top: 10px;" class="pull-right"/>
                                     </div>
                                     <?php } ?>
                                     

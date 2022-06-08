@@ -25,8 +25,15 @@
 
         <!-- Main content -->
       <section class="content">
+        <div class="row">
+          <div class="col-md-12">
+             <a href="<?php echo site_url("teacher/id_card/".$teacher_detail->teacher_id); ?>" class="btn btn-primary ">Generate ID</a>
+
+          </div>
+        </div>
 
           <div class="row">
+
             <div class="col-md-3">
 
               <!-- Profile Image -->
@@ -64,6 +71,9 @@
                   <hr>
                 <strong><i class="fa fa-birthday-cake margin-r-5"></i> Birthdate</strong>
                   <p class="text-muted"><?php echo $teacher_detail->teacher_birthdate; ?></p>
+                  <hr>
+                  <strong><i class="fa fa-birthday-cake margin-r-5"></i> Blood Group</strong>
+                  <p class="text-muted"><?php echo $teacher_detail->teacher_blood_group; ?></p>
 
                   
                 </div><!-- /.box-body -->

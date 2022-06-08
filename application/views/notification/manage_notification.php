@@ -31,8 +31,8 @@
                     <div class="col-md-12">
                     <div class="box">
                 <div class="box-header">
-                
-                <table id="example2" class="table table-bordered table-hover">
+                 <div class="table-responsive">
+                  <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
@@ -44,23 +44,24 @@
                       </tr>
                     </thead>
                     <tbody>
-                <?php  foreach($notification as $noticelist){
-                    ?>
-                    <tr>
-                        
-                        <td><?php echo $noticelist->noti_id; ?></td>
-                        <td><?php echo $noticelist->noti_title; ?></td>
-                        <td><?php echo $noticelist->noti_description; ?></td>
-                        <td><?php echo $noticelist->noti_image; ?></td>
-                        <td><?php echo $noticelist->date; ?></td> 
-                        <td> 
+                      <?php  foreach($notification as $noticelist){
+                        ?>
+                        <tr>
+                          
+                          <td><?php echo $noticelist->noti_id; ?></td>
+                          <td><?php echo $noticelist->noti_title; ?></td>
+                          <td><?php echo $noticelist->noti_description; ?></td>
+                          <td><?php echo $noticelist->noti_image; ?></td>
+                          <td><?php echo $noticelist->date; ?></td> 
+                          <td> 
                             <a href="<?php echo site_url("notification/delete_notification/".$noticelist->noti_id); ?>" onclick="return confirm('are you sure to delete?')" class="btn btn-danger"><i class="fa fa-remove"></i></a>
-                        </td>
-                    </tr>
-                    <?php
-                } ?>
+                          </td>
+                        </tr>
+                        <?php
+                      } ?>
                     </tbody>
-                </table>
+                  </table>
+                </div>
             </div>
         </div>
                     </div>

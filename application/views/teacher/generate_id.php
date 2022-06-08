@@ -1,5 +1,5 @@
 <?php 
-if(isset($student_detail)):
+if(isset($teacher_detail)):
 
 	?>
 	<!DOCTYPE html>
@@ -112,44 +112,44 @@ if(isset($student_detail)):
 
 	<?php 
   	// echo "<pre>";
-  		// print_r($student_detail);
+  		// print_r($teacher_detail);
   		// exit;
 	?>
-	<a href="<?php echo site_url('student/student_detail/'.$student_detail->student_id);?>">back</a>
-	<a href="<?php echo site_url('student/edit_student/'.$student_detail->student_id);?>">Edit</a>
-	<a href="<?php echo site_url('student/list_student');?>">LIST STUDENTS</a>
+	<a href="<?php echo site_url('teacher/teacher_detail/'.$teacher_detail->teacher_id);?>">back</a>
+	<a href="<?php echo site_url('teacher/edit_teacher/'.$teacher_detail->teacher_id);?>">Edit</a>
+	<a href="<?php echo site_url('teacher/list_teacher');?>">List Teacher</a>
 	<div class="cnt">
 		<div id = "htmlContent">
 
 			<div class="card">
 				<div class="card-header">
 					<h2 style="color:#fff;">MY REDEEMER MISSION SCHOOL</h2>
-					<img src="<?php echo isset($student_detail->student_photo) ? base_url('uploads/studentphoto/'.$student_detail->student_photo) : base_url('uploads/studentphoto/').'default.jpg';?>" alt="John" style="width:150px;
+					<img src="<?php echo isset($teacher_detail->student_photo) ? base_url('uploads/studentphoto/'.$teacher_detail->student_photo) : base_url('uploads/studentphoto/').'default.jpg';?>" alt="John" style="width:150px;
 						height: 150px;
 						border-radius:
 						50%;margin-top: 5%;
 						border: 4px solid #850d23;
 						">
 					</div>
-					<h2><?php echo $student_detail->student_name; ?></h2>
+					<h2><?php echo $teacher_detail->teacher_name; ?></h2>
 					<div class="details">
 
-						<p ><span>Father's Name</span> : <?=$student_detail->student_father_name;?></p>
+						<!-- <p ><span>Father's Name</span> : <?=$teacher_detail->student_father_name;?></p> -->
 
 						<div class="left">
 							<ul>
-								<li><span>Class </span>:<?=$student_detail->standard_title;?></li>
-								<li><span>Blood Group </span> :<?php echo $student_detail->student_blood_group;?></li>
+								<!-- <li><span>Class </span>:<?php //echo $teacher_detail->standard_title;?></li> -->
+								<li><span>Blood Group </span> :<?php echo $teacher_detail->teacher_blood_group;?></li>
 							</ul>
 						</div>
 						<div class="right">
 							<ul>
-								<li><span>Roll no</span> : <?=$student_detail->student_roll_no;?></li>
-								<li><span>DOB</span>: <?=$student_detail->student_birthdate?></li>
+								 <!-- <li><span>Roll no</span> : <?php //echo $teacher_detail->student_roll_no;?></li> -->
+								<li><span>DOB</span>: <?=$teacher_detail->teacher_birthdate?></li>
 							</ul>
 						</div>
-						<p><span>Mobile </span>: <?=$student_detail->student_phone?></p>
-						<p><span>Address</span>: <?=$student_detail->student_address;?></p>
+						<p><span>Mobile </span>: <?=$teacher_detail->teacher_phone?></p>
+						<p><span>Address</span>: <?=$teacher_detail->teacher_address;?></p>
 					</div>
 
 				</div>
@@ -170,9 +170,9 @@ if(isset($student_detail)):
 				$("#download").on('click', function(){
 
 					html2canvas(element.get(0)).then(function(canvas) {
-						var imageData = canvas.toDataURL('image/jpeg', 1.0);
+						var imageData = canvas.toDataURL("image/jpg");
 						var newData = imageData.replace(/^data:image\/jpg/, "data:application/octet-stream");
-						$("#download").attr("download", "<?php echo str_replace(' ','_',$student_detail->student_name);?>.jpeg").attr("href", newData);
+						$("#download").attr("download", "<?php echo str_replace(' ','_',$teacher_detail->student_name);?>.jpg").attr("href", newData);
 					});
 
 				});

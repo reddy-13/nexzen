@@ -171,6 +171,7 @@ class Teacher extends CI_Controller
                         "teacher_birthdate" => $this->input->post("teacher_birthdate"),
                         "gender" => $this->input->post("gender"),
                         "maritalstatus" => $this->input->post("maritalstatus"),
+                        "teacher_blood_group" => $this->input->post("teacher_blood_group"),
                         "teacher_education" => $this->input->post("teacher_education"),
                         "teacher_address" => $this->input->post("teacher_address"),
                         "teacher_phone" => $this->input->post("teacher_phone"),
@@ -241,6 +242,18 @@ class Teacher extends CI_Controller
             $data["teacher_detail"] = $this->teacher_model->get_school_teacher_detail($teacher_id);
 
             $this->load->view("teacher/teacher_detail", $data);
+        }
+    }
+
+    public function id_card($teacher_id)
+    {
+        if (_is_user_login($this)) {
+
+            $data = array();
+            $this->load->model("teacher_model");
+            $data["teacher_detail"] = $this->teacher_model->get_school_teacher_detail($teacher_id);
+
+            $this->load->view("teacher/generate_id", $data);
         }
     }
 
