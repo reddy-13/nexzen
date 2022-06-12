@@ -19,7 +19,7 @@ class Leave extends CI_Controller
 		$this->load->library('session');
 	}
 
-	public function index(){
+	public function student_leave(){
 		if(_is_user_login($this)){
 			
 			$data = [];
@@ -38,9 +38,33 @@ class Leave extends CI_Controller
 	      // print_r($school_id);
 
 
-	      $data['leaves'] = $this->leave_model->get_school_leaves($school_id);
+	      $data['leaves'] = $this->leave_model->get_student_leaves($school_id);
 
-	      $this->load->view('leave/list_leave',$data);
+	      $this->load->view('leave/student_leave',$data);
+		}
+	}
+	public function teacher_leave(){
+		if(_is_user_login($this)){
+			
+			$data = [];
+			$school_data = $this->school_model->get_school_profile();
+			if (_get_current_user_type_id($this) == 1) {
+        		$school_id = $school_data->school_id;
+      		} elseif (_get_current_user_type_id($this) == 2) {
+        		$teacher_data = $this->teacher_model->get_school_teacher_user_id(_get_current_user_id($this));
+		        $school_id = $teacher_data->school_id;
+		        # code...
+	      }
+
+	      $this->load->model('leave_model');
+	      // echo "<pre>";
+
+	      // print_r($school_id);
+
+
+	      $data['leaves'] = $this->leave_model->get_teacher_leaves($school_id);
+
+	      $this->load->view('leave/teacher_leave',$data);
 		}
 	}
 

@@ -113,6 +113,19 @@
                 </a>
 
             </li>
+            <li>
+                <a href="#">
+                    <i class="fa fa-user"></i> <span>Leave Management</span> <small
+                        class="label pull-right bg-green"></small>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo site_url("leave/student_leave"); ?>"><i class="fa fa-plus"></i>
+                            Student leave</a></li>
+                    <li><a href="<?php echo site_url("leave/teacher_leave"); ?>"><i class="fa fa-list"></i>Teacher
+                            leave</a></li>
+                </ul>
+            </li>
+
 
 
             <li>

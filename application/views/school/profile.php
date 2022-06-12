@@ -32,15 +32,22 @@
                            
                         </div>
                         <div class="box-body">
-                        
-                            <form role="form" action="" method="post" enctype="multipart/form-data">
+                        <?php
+                                $attributes = ['role' => 'form', 'class' => 'form']; 
+                                echo form_open_multipart('',$attributes);
+                                ?>
+                            <!-- <form role="form" action="" method="post" enctype="multipart/form-data"> -->
                               <div class="box-body">
                               <?php 
-                                echo $this->session->flashdata("message");
-                               ?>
-                                <? if(isset($error)){
-                            echo $error;
-                        } ?>
+                                  if($message = $this->session->flashdata("message")){
+                                    echo $message;
+                                }
+                                ?>
+                                <?php if(isset($error)){
+                                    echo $error;
+                                } ?>
+
+
                                 <div class="form-group">
                                     <div class="row">
                                     <div class="col-md-12">
@@ -48,15 +55,39 @@
                                     </div>
                                       <div class="col-md-6">
                                         <label for="user_fullname">School Name <span class="red">*</span></label>
-                                        <input type="text" class="form-control" id="school_name" name="school_name"  value="<?php if(isset($schooldetail->school_name)) echo $schooldetail->school_name;  ?>"/>
+                                       <?php
+                                               
+                                                echo form_input(['name' => 'school_name',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_name',
+                                                        'placeholder' => 'Shool Name',
+                                                        'value' => set_value('school_name',$schooldetail->school_name)]);
+                                            ?>
+                                            <?php echo form_error('school_name', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                     </div>
                                      <div class="col-md-6">
                                         <label for="user_fullname">School Person Name <span class="red">*</span></label>
-                                        <input type="text" class="form-control" id="school_person_name" name="school_person_name"  value="<?php if(isset($schooldetail->school_person_name)) echo $schooldetail->school_person_name;  ?>"/>
+                                        <?php
+                                               
+                                                echo form_input(['name' => 'school_person_name',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_person_name',
+                                                        'placeholder' => 'School Person Name',
+                                                        'value' => set_value('school_person_name',$schooldetail->school_person_name)]);
+                                            ?>
+                                            <?php echo form_error('school_person_name', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                     </div>
                                       <div class="col-md-6">
                                         <label for="user_fullname">School Address <span class="red">*</span></label>
-                                        <input type="text" class="form-control" id="school_address" name="school_address"  value="<?php if(isset($schooldetail->school_address)) echo $schooldetail->school_address;  ?>"/>
+                                        <?php
+                                               
+                                                echo form_input(['name' => 'school_address',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_address',
+                                                        'placeholder' => 'Student Address',
+                                                        'value' => set_value('school_address', $schooldetail->school_address)]);
+                                            ?>
+                                            <?php echo form_error('school_address', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-group">
@@ -64,40 +95,104 @@
                                       
                                         <label for="user_fullname">School Machine ID <span class="red">*</span> <span style="display:none;" id="m_loader" ><img src="<?php echo $this->config->item('base_url').'/images/loader.gif'.''; ?>"  width="10" height="10"></span></label>
 
-                                        <input type="text" class="form-control" id="punch_machine_id" name="punch_machine_id"  value="<?php if(isset($schooldetail->punch_machine_id)) echo $schooldetail->punch_machine_id;  ?>"/>
+                                        <?php
+                                               
+                                                echo form_input(['name' => 'punch_machine_id',
+                                                        'class' => 'form-control',
+                                                        'id' => 'punch_machine_id',
+                                                        'placeholder' => 'School Machine ID',
+                                                        'value' => set_value('punch_machine_id',$schooldetail->punch_machine_id)]);
+                                            ?>
+                                            <?php echo form_error('punch_machine_id', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                         </div>
                                     </div>
                                      <div class="col-md-6">
                                         <label for="user_fullname">City Name <span class="red">*</span></label>
-                                        <input type="text" class="form-control" id="school_city" name="school_city"  value="<?php if(isset($schooldetail->school_city)) echo $schooldetail->school_city;  ?>"/>
+                                        <?php
+                                               
+                                                echo form_input(['name' => 'school_city',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_city',
+                                                        'placeholder' => 'City',
+                                                        'value' => set_value('school_city',$schooldetail->school_city)]);
+                                            ?>
+                                            <?php echo form_error('school_city', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                     </div>
                                     <div class="col-md-6">
                                         <label for="user_fullname">State Name</label>
-                                        <input type="text" class="form-control" id="school_state" name="school_state"  value="<?php if(isset($schooldetail->school_state)) echo $schooldetail->school_state;  ?>"/>
+                                        <?php
+                                               
+                                                echo form_input(['name' => 'school_state',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_state',
+                                                        'placeholder' => 'State',
+                                                        'value' => set_value('school_state',$schooldetail->school_state)]);
+                                            ?>
+                                            <?php echo form_error('school_state', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                     </div>
                                      <div class="col-md-6">
                                         <label for="user_fullname">Postal code or Pincode</label>
-                                        <input type="text" class="form-control" id="school_postal_code" name="school_postal_code"  value="<?php if(isset($schooldetail->school_postal_code)) echo $schooldetail->school_postal_code;  ?>"/>
+                                        <?php
+                                               
+                                                echo form_input(['name' => 'school_postal_code',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_postal_code',
+                                                        'placeholder' => 'PIN',
+                                                        'value' => set_value('school_postal_code',$schooldetail->school_postal_code)]);
+                                            ?>
+                                            <?php echo form_error('school_postal_code', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                     </div>
                                     <div class="col-md-6">
                                       <div class="form-group">
-                                        <label for="user_fullname">School Phone1 <span class="red">*</span></label>
-                                        <input type="text" class="form-control" id="school_phone1" name="school_phone1"  value="<?php if(isset($schooldetail->school_phone1)) echo $schooldetail->school_phone1;  ?>"/>
+                                        <label for="user_fullname">Primary Mobile number <span class="red">*</span></label>
+                                       <?php
+                                               
+                                                echo form_input(['name' => 'school_phone1',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_phone1',
+                                                        'placeholder' => 'Primary Phone',
+                                                        'value' => set_value('school_phone1',$schooldetail->school_phone1)]);
+                                            ?>
+                                            <?php echo form_error('school_phone1', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                       </div>
                                     </div>
                                      <div class="col-md-6">
-                                        <label for="user_fullname">School Phone2</label>
-                                        <input type="text" class="form-control" id="school_phone2" name="school_phone2"  value="<?php if(isset($schooldetail->school_phone2)) echo $schooldetail->school_phone2;  ?>"/>
+                                        <label for="user_fullname">Secondary Mobile number</label>
+                                        <?php
+                                               
+                                                echo form_input(['name' => 'school_phone2',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_phone2',
+                                                        'placeholder' => 'Secondary Phone',
+                                                        'value' => set_value('school_phone2',$schooldetail->school_phone2)]);
+                                            ?>
+                                            <?php echo form_error('school_phone2', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                     </div>
                                      <div class="col-md-6">
                                       <div class="form-group">
                                         <label for="user_fullname">School Email <span class="red">*</span> <span class="geen" id="email_msg"></span> </label>
-                                        <input type="text" class="form-control" id="school_email" name="school_email"  value="<?php if(isset($schooldetail->school_email)) echo $schooldetail->school_email;  ?>"/>
+                                        <?php
+                                               
+                                                echo form_input(['name' => 'school_email',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_email',
+                                                        'placeholder' => 'Email',
+                                                        'value' => set_value('school_email',$schooldetail->school_email)]);
+                                            ?>
+                                            <?php echo form_error('school_email', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                         </div>
                                     </div>
                                      <div class="col-md-6">
                                         <label for="user_fullname">School Fax No </label>
-                                        <input type="text" class="form-control" id="school_fax" name="school_fax"  value="<?php if(isset($schooldetail->school_fax)) echo $schooldetail->school_fax;  ?>"/>
+                                        <?php
+                                               
+                                                echo form_input(['name' => 'school_fax',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_fax',
+                                                        'placeholder' => 'School Fax no',
+                                                        'value' => set_value('school_fax',$schooldetail->school_fax)]);
+                                            ?>
+                                            <?php echo form_error('school_fax', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                     </div>
                                      <div class="col-md-6">
                                       <div class="form-group">
@@ -106,8 +201,16 @@
                                       </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <label for="user_fullname">School Facebook Page Link <span class="red">*</span></label>
-                                        <input type="text" class="form-control" id="school_facebook" name="school_facebook"  value="<?php if(isset($schooldetail->school_facebook)) echo $schooldetail->school_facebook;  ?>"/>
+                                        <label for="user_fullname">School Facebook Page Link </label>
+                                        <?php
+                                               
+                                                echo form_input(['name' => 'school_facebook',
+                                                        'class' => 'form-control',
+                                                        'id' => 'school_facebook',
+                                                        'placeholder' => 'Facebook link',
+                                                        'value' => set_value('school_facebook',$schooldetail->school_facebook)]);
+                                            ?>
+                                            <?php echo form_error('school_facebook', '<span class="text-danger"><small><b>', '</b></small></span>'); ?>
                                     </div>
                                     <?php if(isset($schooldetail->school_logo) && $schooldetail->school_logo!=""){ ?>
                                      <div class="col-md-6">
