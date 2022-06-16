@@ -2,7 +2,7 @@
 class Student_model extends CI_Model
 {
 
-    public function get_school_student($filter = array(), $school_id)
+    public function get_school_student($filter = array(), $school_id, $limit, $offset)
     {
 
         $filter_text = "";
@@ -24,7 +24,7 @@ class Student_model extends CI_Model
 
         $sql = "select student_detail.*, standard.standard_title,standard.standard_id from student_detail 
             left join standard on standard.standard_id = student_detail.student_standard
-            where 1 " . $filter_text;
+            where 1 ".$filter_text." LIMIT ".$limit." OFFSET ".$offset;
 
         $q = $this->db->query($sql); 
         return $q->result();

@@ -139,14 +139,18 @@
                                             <?php
                       } ?>
                                         </tbody>
-                                    </table>
-                           
+                                    </table>  
+                                     <?php echo $this->pagination->create_links();?>
                                 </div>
+                               
+
                             </div>
                         </div>
+
                     </div>
                 </div>
             </section><!-- /.content -->
+
         </div><!-- /.content-wrapper -->
 
         <?php $this->load->view("admin/common/common_footer"); ?>
@@ -205,15 +209,15 @@
     $(function() {
 
         $('#example2').DataTable({
-            "paging": true,
+            "paging": false,
             "lengthChange": true,
             "searching": true,
             "ordering": true,
             "order": [
                 [0, "desc"]
             ],
-            "info": true,
-            "autoWidth": false
+            "info": false,
+            "autoWidth": true
 
 
         });

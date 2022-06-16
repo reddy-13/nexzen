@@ -8,7 +8,7 @@ class Student extends CI_Controller
     parent::__construct();
     // Your own constructor code
     $this->load->database();
-    $this->load->helper(['login_helper','form']);
+    $this->load->helper(['login_helper','form','url']);
     $this->load->model("school_model");
     $this->load->model("teacher_model");
     // $this->load->library('upload');
@@ -526,7 +526,8 @@ public function list_student()
 {
 
   if (_is_user_login($this)) {
-      // $data = array();
+      // $data = array(); 
+    
 
     $filter = array();
     if (isset($_GET['standard'])) {
@@ -547,14 +548,28 @@ public function list_student()
         # code...
     }
     // pagination
-    // $this->load->library('pagination');
-    // $config = [
-    //   "base_url" => base_url('list_student'),
-    //   "per_page" => 10,
-    //   "total_rows" => $this->student_model->get_school_student_count($filter, $school_id),
-    // ];
+    $this->load->library('pagination');
+    $config = [
+      "base_url" => base_url('index.php/student/list_student'),
+      "per_page" => 10,
+      "total_rows" => $this->student_model->get_school_student_count($filter, $school_id),
+      "full_tag_open"=> "<ul class='pagination'>",
+      "full_tag_close"=> "</ul>",
+      "next_tag_open" => "<li>",
+      "first_tag_open" => "<li>",
+      "first_tag_close" => "</li>",
+      "next_tag_close" => "</li>",
+      "prev_tag_open" => "<li>",
+      "prev_tag_close" => "</li>",
+      "num_tag_open" => "<li>",
+      "num_tag_close" => "</li>",
+      "cur_tag_open" => "<li class='active'><a>",
+      "cur_tag_close" => "</a></li>",
+
+    ];
+    $this->pagination->initialize($config);
      
-    $data["student"] = $this->student_model->get_school_student($filter, $school_id);
+    $data["student"] = $this->student_model->get_school_student($filter, $school_id,$config['per_page'], $this->uri->segment(3, 0));
     /* get school standard */
     if (_get_current_user_type_id($this) == 1) {
 
@@ -746,6 +761,8 @@ public function list_cards($student_id='')
 
     $this->db->update($table, array("$status" => $on_off), array("$id_field" => $id));
   }
+
+  // student details
   public function student_detail($student_id)
   {
     if (_is_user_login($this)) {
@@ -760,6 +777,8 @@ public function list_cards($student_id='')
       $this->load->view("student/student_detail", $data);
     }
   }
+
+  // delete student
   function delete_student($student_id)
   {
     $data = array();

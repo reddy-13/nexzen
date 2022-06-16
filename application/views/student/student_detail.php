@@ -34,6 +34,11 @@
         <!-- Main content -->
         <section class="content">
          <div class="row">
+          <?php
+            echo "<pre>";
+            print_r($student_detail);
+            exit; 
+           ?>
     <div class="pull-right">
         <a class="btn btn-primary" href="<?php echo site_url("student/list_cards/").$student_detail->student_id; ?>">Generate ID</a>
         <a class="btn btn-primary" href="<?php echo site_url("student/list_student/").$student_detail->student_id; ?>">Student's list</a>
