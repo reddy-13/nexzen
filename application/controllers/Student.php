@@ -768,8 +768,12 @@ public function list_cards($student_id='')
     if (_is_user_login($this)) {
       $data = array();
       $this->load->model("student_model");
-      $data["student_detail"] = $this->student_model->get_school_student_detail($student_id);
-
+      
+      $data["student_data"] = $this->student_model->get_school_student_detail($student_id);
+      // echo "<pre>";
+      // print_r($data);
+      // print_r($student_id);
+      // exit;
 
       $this->load->model("growth_model");
       $data["student_growth"] = $this->growth_model->get_school_standard_student_growth($student_id);
