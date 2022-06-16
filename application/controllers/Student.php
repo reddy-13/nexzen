@@ -8,7 +8,7 @@ class Student extends CI_Controller
     parent::__construct();
     // Your own constructor code
     $this->load->database();
-    $this->load->helper(['login_helper','form']);
+    $this->load->helper(['login_helper','form','url']);
     $this->load->model("school_model");
     $this->load->model("teacher_model");
     // $this->load->library('upload');
@@ -190,6 +190,98 @@ class Student extends CI_Controller
     }
   }
 
+  public function import_csv()
+  { 
+    function passGen($name, $dob)
+      {
+        $name = strtolower($name);
+        $name = str_replace(' ', '', $name);
+        $name = substr($name, 0, 6);
+        $dob =  str_replace('-', '', $dob);
+
+        return $name . $dob.rand(10,100);
+      }
+
+             $this->load->model("common_model");
+            echo "<pre>";
+            $file = fopen(base_url('uploads/')."data.csv","r");
+            print_r(fgetcsv($file));
+
+                $i = 0;
+                $numberOfFields = 28 ; // colums number
+                $csvArr = array();
+                // exit;
+                
+                while (($filedata = fgetcsv($file, 2000, ",")) !== FALSE) {
+                    $num = count($filedata);
+
+                    if($i > 0 && $num == $numberOfFields){ 
+                        $csvArr[$i]['school_id'] = $filedata[1];
+                        $csvArr[$i]['punch_machine_id'] = $filedata[3];
+                        $csvArr[$i]['student_name'] = $filedata[9];
+                        $csvArr[$i]['student_blood_group'] = $filedata[10];
+                        $csvArr[$i]['student_father_name'] = $filedata[11];
+                        $csvArr[$i]['student_birthdate'] = $filedata[12];
+                        $csvArr[$i]['student_roll_no'] = $filedata[13];
+                        $csvArr[$i]['student_standard'] = $filedata[14];
+                        $csvArr[$i]['student_address'] = $filedata[15];
+                        $csvArr[$i]['student_city'] = $filedata[16];
+                        $csvArr[$i]['student_phone'] = $filedata[17];
+                        $csvArr[$i]['student_parent_phone'] = $filedata[18];
+                        $csvArr[$i]['student_branch'] = $filedata[22];
+                      // print_r($filedata);
+
+                        // $csvArr[$i]['email'] = $filedata[1];
+                        // $csvArr[$i]['phone'] = $filedata[2];
+                        // $csvArr[$i]['created_at'] = $filedata[3];
+                    }
+                    $i++;
+                }
+                // print_r($csvArr);
+                 fclose($file);
+                    $count = 0;
+                    $data = [];
+                      foreach($csvArr as $userdata){
+                        // print_r($userdata);
+                          // $students = new StudentModel();
+                          // $findRecord = $students->where('email', $userdata['email'])->countAllResults();
+                          // if($findRecord == 0){
+                          //     if($students->insert($userdata)){
+                          //         $count++;
+                          //     }
+
+                
+                          array_push($data , [
+                          "student_name" => $userdata["student_name"],
+                          "student_father_name" => $userdata["student_father_name"],
+                          "student_birthdate" => $userdata["student_birthdate"],
+                          "student_roll_no" => $userdata["student_roll_no"],
+                          // "punch_card_id" => $userdata["punch_card_id"],
+                          "student_user_name" => passGen($userdata["student_name"], $userdata["student_roll_no"]),
+                          "student_password" => md5(passGen($userdata["student_name"], $userdata["student_roll_no"])),
+                          "student_orgpassword" => passGen($userdata["student_name"], $userdata["student_roll_no"]),
+                          "student_standard" => $userdata["student_standard"],
+                          "student_address" => $userdata["student_address"],
+                          "student_city" => $userdata["student_city"],
+                          "student_blood_group" => $userdata["student_blood_group"],
+                          "student_phone" => $userdata["student_phone"],
+                          "student_parent_phone" => $userdata["student_parent_phone"],
+                          // "student_enr_no" => $userdata["student_enr_no"],
+                          // "student_email" => $userdata["student_email"],
+                          "student_branch" => $userdata["student_branch"],
+                          "school_id" => 1,
+                          "punch_machine_id" => 2,
+                          ]);
+                          $count++;
+                    }
+              
+              print_r($data);
+              $this->db->insert_batch('student_detail', $data);
+              // $this->load->model("student_model");
+
+              //  $this->student_model->insert_student('student_detail', $data);
+
+  }
   // public function add_bulk()
   // {
   //   if ($this->input->post('submit')) {
@@ -434,7 +526,8 @@ public function list_student()
 {
 
   if (_is_user_login($this)) {
-      // $data = array();
+      // $data = array(); 
+    
 
     $filter = array();
     if (isset($_GET['standard'])) {
@@ -443,7 +536,7 @@ public function list_student()
     $this->load->model("standard_model");
     $this->load->model("student_model");
     $this->load->model('school_model');
-
+    $data = [];
     $school_data = $this->school_model->get_school_profile();
     if (_get_current_user_type_id($this) == 1) {
 
@@ -451,12 +544,32 @@ public function list_student()
     } elseif (_get_current_user_type_id($this) == 2) {
 
       $teacher_data = $this->teacher_model->get_school_teacher_user_id(_get_current_user_id($this));
-
       $school_id = $teacher_data->school_id;
         # code...
     }
+    // pagination
+    $this->load->library('pagination');
+    $config = [
+      "base_url" => base_url('index.php/student/list_student'),
+      "per_page" => 10,
+      "total_rows" => $this->student_model->get_school_student_count($filter, $school_id),
+      "full_tag_open"=> "<ul class='pagination'>",
+      "full_tag_close"=> "</ul>",
+      "next_tag_open" => "<li>",
+      "first_tag_open" => "<li>",
+      "first_tag_close" => "</li>",
+      "next_tag_close" => "</li>",
+      "prev_tag_open" => "<li>",
+      "prev_tag_close" => "</li>",
+      "num_tag_open" => "<li>",
+      "num_tag_close" => "</li>",
+      "cur_tag_open" => "<li class='active'><a>",
+      "cur_tag_close" => "</a></li>",
 
-    $data["student"] = $this->student_model->get_school_student($filter, $school_id);
+    ];
+    $this->pagination->initialize($config);
+     
+    $data["student"] = $this->student_model->get_school_student($filter, $school_id,$config['per_page'], $this->uri->segment(3, 0));
     /* get school standard */
     if (_get_current_user_type_id($this) == 1) {
 
@@ -483,6 +596,7 @@ public function list_cards($student_id='')
     if (_is_user_login($this)) {
       $data = array();
       $this->load->model("student_model");
+       $data['school_details'] = $this->school_model->get_school_profile();
       $data["student_detail"] = $this->student_model->get_school_student_detail($student_id);
 
 
@@ -647,13 +761,19 @@ public function list_cards($student_id='')
 
     $this->db->update($table, array("$status" => $on_off), array("$id_field" => $id));
   }
+
+  // student details
   public function student_detail($student_id)
   {
     if (_is_user_login($this)) {
       $data = array();
       $this->load->model("student_model");
-      $data["student_detail"] = $this->student_model->get_school_student_detail($student_id);
-
+      
+      $data["student_data"] = $this->student_model->get_school_student_detail($student_id);
+      // echo "<pre>";
+      // print_r($data);
+      // print_r($student_id);
+      // exit;
 
       $this->load->model("growth_model");
       $data["student_growth"] = $this->growth_model->get_school_standard_student_growth($student_id);
@@ -661,6 +781,8 @@ public function list_cards($student_id='')
       $this->load->view("student/student_detail", $data);
     }
   }
+
+  // delete student
   function delete_student($student_id)
   {
     $data = array();

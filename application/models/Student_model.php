@@ -2,7 +2,35 @@
 class Student_model extends CI_Model
 {
 
-    public function get_school_student($filter = array(), $school_id)
+    public function get_school_student($filter = array(), $school_id, $limit, $offset)
+    {
+
+        $filter_text = "";
+
+        if (!empty($filter)) {
+            if (key_exists("student_standard", $filter)) {
+                $filter_text .= " and  `student_detail`.student_standard = '" . $filter['student_standard'] . "' ";
+            }
+        } else {
+            if (_get_current_user_type_id($this) == 2) {
+                $filter_text .= " and  `student_detail`.school_id = " . $school_id;
+            } else if (_get_current_user_type_id($this) == 1) {
+                $filter_text .= " and  `student_detail`.school_id = " . $school_id;
+            }
+        }
+        //$q = $this->db->query("select student_detail.*, standard.standard_title from student_detail 
+        //inner join standard on standard.standard_id = student_detail.student_standard
+        //where student_detail.school_id="._get_current_user_id($this));
+
+        $sql = "select student_detail.*, standard.standard_title,standard.standard_id from student_detail 
+            left join standard on standard.standard_id = student_detail.student_standard
+            where 1 ".$filter_text." LIMIT ".$limit." OFFSET ".$offset;
+
+        $q = $this->db->query($sql); 
+        return $q->result();
+    }
+
+    public function get_school_student_count($filter = array(), $school_id)
     {
 
         $filter_text = "";
@@ -28,7 +56,7 @@ class Student_model extends CI_Model
             where 1 " . $filter_text;
 
         $q = $this->db->query($sql);
-        return $q->result();
+        return $q->num_rows();
     }
 
     public function get_due_fee($standard, $fee_type, $school_id)
@@ -132,5 +160,10 @@ class Student_model extends CI_Model
 
         $q = $this->db->get();
         return $q->result();
+    }
+
+    public function insert_student($data){
+        $this->db->insert_batch('student_detail', $data);
+        return true;
     }
 }

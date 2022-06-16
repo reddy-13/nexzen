@@ -112,18 +112,37 @@ if(isset($student_detail)):
 
 	<?php 
   	// echo "<pre>";
-  		// print_r($student_detail);
-  		// exit;
+  	// 	print_r($school_details);
+  	// 	exit;
 	?>
+	<div style="display:flex; justify-content: space-between;">
+	<div>
 	<a href="<?php echo site_url('student/student_detail/'.$student_detail->student_id);?>">back</a>
-	<a href="<?php echo site_url('student/edit_student/'.$student_detail->student_id);?>">Edit</a>
+	
+	
 	<a href="<?php echo site_url('student/list_student');?>">LIST STUDENTS</a>
+	<a  href="<?php echo site_url('student/edit_student/'.$student_detail->student_id);?>">Edit</a>	
+	</div>
+	<div>
+	<a href="<?php echo $this->uri->segment(3, 0)-1;?>" >PREVIOUS</a>
+	<a href="<?php echo $this->uri->segment(3, 0)+1;?>" >NEXT</a>
+	</div>
+	</div>
+	
 	<div class="cnt">
 		<div id = "htmlContent">
 
 			<div class="card">
 				<div class="card-header">
-					<h2 style="color:#fff;">MY REDEEMER MISSION SCHOOL</h2>
+					<div style="display:flex; flex-direction:row;">
+						<div style="flex:20%;">
+							<img src="<?php echo base_url('uploads/profile/'.$school_details->school_logo);?>" style="width:90px; height:90px" alt="school_logo" />
+						</div>						
+						<div style="flex: 80%; text-align:left;padding: 2px;" >
+							<h2 style="color:#fff;"><?php echo $school_details->school_name;?></h2>
+						</div>						
+					</div>
+					
 					<img src="<?php echo isset($student_detail->student_photo) ? base_url('uploads/studentphoto/'.$student_detail->student_photo) : base_url('uploads/studentphoto/').'default.jpg';?>" alt="John" style="width:150px;
 						height: 150px;
 						border-radius:
